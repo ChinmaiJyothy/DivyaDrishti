@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from divyadrishti.infrastructure.persistence.database import get_db
+from divyadrishti.database import get_db
 from divyadrishti.schemas.health import HealthResponse
 
 router = APIRouter()

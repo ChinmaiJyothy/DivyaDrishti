@@ -7,9 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from divyadrishti.api.v1.routers import health
-from divyadrishti.infrastructure.config.settings import get_settings
-from divyadrishti.infrastructure.logging.structured_logger import configure_logging
-from divyadrishti.infrastructure.persistence.database import Base, engine
+from divyadrishti.config import get_settings
+from divyadrishti.database import Base, engine
+from divyadrishti.utils import configure_logging
 
 settings = get_settings()
 configure_logging(settings.log_level)
