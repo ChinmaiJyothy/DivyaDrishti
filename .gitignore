@@ -20,3 +20,9 @@ dist/
 *.sqlite3
 
 .devin/config.local.json
+
+# Vector store and processed document data
+.chroma/
+
+# Large scanned PDFs uploaded for processing
+knowledge-base/books/Book PDFs/

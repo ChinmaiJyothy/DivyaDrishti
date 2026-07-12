@@ -15,7 +15,9 @@ This document describes the high-level architecture of DivyaDrishti.
 - Frontend (Next.js)
 - Backend (FastAPI)
 - Database (SQLite / PostgreSQL)
+- Document Knowledge Processing Pipeline
 - Astrology Engine
+- Evidence & Rule Evaluation Engine
 - Reasoning Engine
 - Knowledge Base
 - Conversation Engine
@@ -41,7 +43,41 @@ LLM Conversation Engine
 Natural Language Response
 ```
 
+## Document Data Flow
+
+```text
+Uploaded Book (PDF, Markdown, TXT, OCR)
+    ↓
+Document Extractor
+    ↓
+Language Detector
+    ↓
+Semantic Chunker
+    ↓
+Embedding Generator
+    ↓
+Vector Store (ChromaDB)
+    ↓
+Document Retrieval Engine
+    ↓
+Reasoning Engine
+    ↓
+LLM Conversation Engine
+```
+
 ## Component Details
+
+### Document Knowledge Processing Pipeline
+
+The Document Pipeline transforms books into a structured, searchable knowledge base.
+
+Responsibilities:
+- Extract text from PDF, Markdown, TXT, and scanned PDFs.
+- Detect and preserve language.
+- Generate semantic chunks.
+- Generate embeddings.
+- Store chunks in a vector store.
+- Generate citations.
 
 ### Evidence & Rule Evaluation Engine
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-DivyaDrishti's knowledge base is a structured, machine-readable repository of Vedic astrology rules derived from classical texts. The LLM does not invent astrology; it explains the reasoning produced from this knowledge base.
+DivyaDrishti's knowledge base is a structured, machine-readable repository of Vedic astrology rules derived from classical texts. The Document Knowledge Processing Pipeline is the primary source for ingesting and retrieving knowledge from uploaded books. The LLM does not invent astrology; it explains the reasoning produced from this knowledge base.
 
 ## Directory Structure
 
