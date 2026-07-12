@@ -87,6 +87,16 @@ class Rule(BaseModel):
     references: list[str] = Field(default_factory=list)
     tags: list[str] = Field(default_factory=list)
     enabled: bool = True
+    version: str = "1.0.0"
+    created_at: str = ""
+    modified_at: str = ""
+    modified_by: str = ""
+    approval_status: str = "approved"
+    change_history: list[dict] = Field(default_factory=list)
+    deprecated: bool = False
+    usage_count: int = 0
+    positive_feedback: int = 0
+    negative_feedback: int = 0
 
     @field_validator("conditions", "references", "tags", mode="before")
     @classmethod

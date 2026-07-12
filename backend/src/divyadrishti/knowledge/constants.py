@@ -98,6 +98,12 @@ VALID_BOOKS = {
     "Jaimini_Sutras": "Jaimini Sutras",
 }
 
+
+def register_book_source(book_id: str, title: str) -> None:
+    """Register a new book source for rule validation."""
+    VALID_BOOKS[book_id] = title
+
+
 DEFAULT_RULE_CATEGORIES = {
     "houses",
     "planets",

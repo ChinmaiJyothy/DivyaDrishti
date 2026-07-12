@@ -29,7 +29,10 @@ class RuleValidator:
         self.valid_yogas = set(VALID_YOGAS)
         self.valid_doshas = set(VALID_DOSHAS)
         self.valid_dashas = set(VALID_DASHAS)
-        self.valid_books = set(VALID_BOOKS.keys()) | set(VALID_BOOKS.values())
+        self.valid_books = self._valid_books()
+
+    def _valid_books(self) -> set[str]:
+        return set(VALID_BOOKS.keys()) | set(VALID_BOOKS.values())
 
     def validate(self, data: dict | Rule) -> Rule:
         """Validate a single rule."""
@@ -111,7 +114,7 @@ class RuleValidator:
                     rule_id=rule.rule_id,
                 )
 
-        if rule.source_book not in self.valid_books:
+        if rule.source_book not in self._valid_books():
             raise RuleValidationError(
                 f"Unknown source book: {rule.source_book}",
                 rule_id=rule.rule_id,

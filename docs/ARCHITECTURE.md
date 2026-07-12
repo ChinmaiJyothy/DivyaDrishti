@@ -138,6 +138,30 @@ Components:
 - `LanguageService` — localization and translation
 - `SafetyGuard` — disallowed content and language sanitization
 
+### Adaptive Knowledge Learning & Continuous Improvement
+
+The Learning system enables DivyaDrishti to improve from feedback, admin corrections, and new books without retraining the LLM or modifying original classical texts.
+
+Responsibilities:
+- Collect user feedback.
+- Manage rule versions and approval workflows.
+- Analyze rule quality.
+- Detect duplicate and conflicting rules.
+- Monitor new book imports.
+- Generate knowledge analytics.
+- Maintain audit logs.
+- Export knowledge, feedback, and metrics.
+
+Components:
+- `FeedbackManager`
+- `RuleVersionManager`
+- `QualityAnalyzer`
+- `ConflictAnalyzer`
+- `BookImportMonitor`
+- `KnowledgeAnalytics`
+- `AuditLogger`
+- `KnowledgeExporter`
+
 ## Deployment Architecture
 
 ## Future Considerations

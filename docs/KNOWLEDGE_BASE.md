@@ -56,6 +56,16 @@ Every rule is a YAML or JSON object with the following fields:
 | references | list[str] | No | Additional references |
 | tags | list[str] | No | Search tags |
 | enabled | bool | No | Whether the rule is active |
+| version | str | No | Semantic version, e.g. `1.0.0` |
+| created_at | str | No | ISO timestamp |
+| modified_at | str | No | ISO timestamp |
+| modified_by | str | No | User or admin who changed it |
+| approval_status | str | No | `approved`, `pending`, `rejected`, `deprecated` |
+| change_history | list | No | Audit trail of changes |
+| deprecated | bool | No | Whether the rule is deprecated |
+| usage_count | int | No | Number of times used |
+| positive_feedback | int | No | Count of positive feedback |
+| negative_feedback | int | No | Count of negative feedback |
 
 ### astrological_factors Object
 

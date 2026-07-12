@@ -110,6 +110,29 @@ class KnowledgeRepository:
         """Return all loaded books."""
         return list(self.books.values())
 
+    def update_rule(self, rule: Rule) -> None:
+        """Update an existing rule in memory and rewrite all persisted rules."""
+        for i, existing in enumerate(self.rules):
+            if existing.rule_id == rule.rule_id:
+                self.rules[i] = rule
+                break
+        self._save_all_rules()
+
+    def _save_all_rules(self) -> None:
+        """Rewrite all rule files by category."""
+        by_category: dict[str, list[dict]] = {}
+        for rule in self.rules:
+            by_category.setdefault(rule.category, []).append(rule.model_dump(exclude_none=True))
+
+        for category, rules in by_category.items():
+            category_dir = self.rules_path / category
+            category_dir.mkdir(parents=True, exist_ok=True)
+            file_path = category_dir / "rules.yaml"
+            file_path.write_text(
+                yaml.safe_dump(rules, sort_keys=False, allow_unicode=True, indent=2),
+                encoding="utf-8",
+            )
+
     def export_rules(self, output_path: Path | str) -> None:
         """Export all rules as JSON."""
         output_path = Path(output_path)
