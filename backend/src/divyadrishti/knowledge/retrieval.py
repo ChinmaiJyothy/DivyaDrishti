@@ -82,14 +82,16 @@ class KnowledgeRetrievalEngine:
         ]
 
     def retrieve_by_combination(self, factors: dict) -> list[Rule]:
-        """Retrieve rules that match all provided astrological factors.
+        """Retrieve rules that match all provided astrological factor groups.
 
         Example factors: {"houses": [7], "planets": ["Jupiter"]}
+        The rule must match at least one value from every non-empty group.
         """
+        required = sum(1 for values in factors.values() if values)
         results = []
         for rule in self._all_rules():
             score = self._score_rule(rule, factors)
-            if score > 0:
+            if score >= required and required > 0:
                 results.append((rule, score))
         results.sort(key=lambda x: x[1], reverse=True)
         return [rule for rule, _ in results]

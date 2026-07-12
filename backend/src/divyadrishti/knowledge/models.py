@@ -115,7 +115,7 @@ class Rule(BaseModel):
 class Book(BaseModel):
     """Metadata for a classical Vedic astrology text."""
 
-    book_id: str = Field(..., pattern=r"^[A-Z][A-Z0-9_]*$")
+    book_id: str = Field(..., pattern=r"^[A-Za-z][A-Za-z0-9_]*$")
     title: str
     author: str | None = None
     language: str | None = None
