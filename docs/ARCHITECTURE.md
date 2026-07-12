@@ -115,6 +115,29 @@ Components:
 
 The `ReasoningTrace` is the only input the LLM receives for astrological reasoning.
 
+### AI Conversation & Interpretation Engine
+
+The AI Conversation Engine converts structured reasoning into natural-language responses.
+
+Responsibilities:
+- Build prompts from reasoning, context, history, and preferences.
+- Interface with a provider-agnostic LLM layer.
+- Generate structured `AIResponse`.
+- Support streaming and structured output.
+- Maintain conversation memory.
+- Support multilingual responses.
+- Cite classical sources from the reasoning trace.
+- Apply safety guardrails.
+
+Components:
+- `LLMProvider` interface and adapters (`OpenAIProvider`, `AnthropicProvider`, `GeminiProvider`, `OllamaProvider`, `MockProvider`)
+- `AIGateway` — provider selection, retry, timeout, fallback, logging
+- `PromptManager` — external Jinja2 templates with versioning and validation
+- `ContextBuilder` — assembles prompt context with truncation
+- `ConversationMemory` — preferences and history
+- `LanguageService` — localization and translation
+- `SafetyGuard` — disallowed content and language sanitization
+
 ## Deployment Architecture
 
 ## Future Considerations

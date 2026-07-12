@@ -1,0 +1,38 @@
+{
+  "system": {
+    "version": "1.0.0",
+    "variables": ["user_name", "chart_summary", "reasoning_trace", "conversation_history", "user_question"]
+  },
+  "career": {
+    "version": "1.0.0",
+    "variables": ["career_indicators", "strengths", "timing_estimate"]
+  },
+  "marriage": {
+    "version": "1.0.0",
+    "variables": ["marriage_indicators", "timing", "compatibility"]
+  },
+  "finance": {
+    "version": "1.0.0",
+    "variables": ["finance_indicators", "sources_of_income", "timing"]
+  },
+  "health": {
+    "version": "1.0.0",
+    "variables": ["health_indicators", "vulnerable_areas", "remedies"]
+  },
+  "education": {
+    "version": "1.0.0",
+    "variables": ["education_indicators", "fields", "timing"]
+  },
+  "relationship": {
+    "version": "1.0.0",
+    "variables": ["relationship_indicators", "compatibility", "timing"]
+  },
+  "personality": {
+    "version": "1.0.0",
+    "variables": ["personality_indicators", "strengths", "challenges"]
+  },
+  "report_generation": {
+    "version": "1.0.0",
+    "variables": ["report_type", "chart_summary", "sections"]
+  }
+}
