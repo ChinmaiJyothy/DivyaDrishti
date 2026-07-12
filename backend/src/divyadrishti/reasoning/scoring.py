@@ -107,6 +107,15 @@ def build_matched_conditions(matched: dict[str, list]) -> list[str]:
     return conditions
 
 
+def _match_status(confidence: float) -> str:
+    """Classify evidence as matched, partially matched, or not matched."""
+    if confidence >= 60.0:
+        return "matched"
+    if confidence > 0.0:
+        return "partially_matched"
+    return "not_matched"
+
+
 def build_evidence(rule: Rule, chart: ChartData, matched: dict[str, list]) -> Evidence:
     """Build a full Evidence object from a matched rule."""
     confidence = compute_confidence(rule, matched)
@@ -121,6 +130,7 @@ def build_evidence(rule: Rule, chart: ChartData, matched: dict[str, list]) -> Ev
         matched_conditions=matched_conditions,
         confidence=confidence,
         weight=weight,
+        match_status=_match_status(confidence),
         explanation=rule.interpretation,
         notes=notes,
     )

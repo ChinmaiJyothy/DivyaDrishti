@@ -19,6 +19,7 @@ class RuleEvaluator:
                 matched_conditions=[],
                 confidence=0.0,
                 weight=0.0,
+                match_status="not_matched",
                 explanation=rule.interpretation,
                 notes="No matching astrological factors in the chart.",
             )

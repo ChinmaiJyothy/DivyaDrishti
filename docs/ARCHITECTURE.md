@@ -81,15 +81,37 @@ Responsibilities:
 
 ### Evidence & Rule Evaluation Engine
 
-The Evidence Engine sits between the Knowledge Base and the LLM.
+The Evidence Engine evaluates individual rules against the birth chart.
 
 Responsibilities:
-- Collect relevant rules from the Knowledge Retrieval Engine.
 - Evaluate each rule against the birth chart.
 - Score evidence and compute confidence.
-- Detect conflicting rules.
-- Group evidence by topic.
-- Aggregate into a `ReasoningTrace`.
+- Generate `Evidence` objects.
+
+### Astrological Reasoning Engine
+
+The Astrological Reasoning Engine orchestrates the full analytical workflow.
+
+Responsibilities:
+- Understand the user's question and determine the astrology domain.
+- Determine relevant astrological entities.
+- Retrieve relevant rules from the Knowledge Engine.
+- Evaluate every rule.
+- Determine matched, partially matched, and unmatched rules.
+- Score rules with weight, confidence, priority, source, and evidence.
+- Resolve conflicts without ignoring any evidence.
+- Generate structured `ReasoningResult` / `ReasoningTrace`.
+- Never generate natural language.
+- Never communicate with users.
+
+Components:
+- `QuestionAnalyzer`
+- `RuleMatcher`
+- `EvidenceEvaluator`
+- `ConflictResolver`
+- `ConfidenceCalculator`
+- `ReasoningAggregator`
+- `ReasoningSerializer`
 
 The `ReasoningTrace` is the only input the LLM receives for astrological reasoning.
 

@@ -59,6 +59,7 @@ class Evidence(BaseModel):
     matched_conditions: list[str] = Field(default_factory=list)
     confidence: float = Field(default=0.0, ge=0.0, le=100.0)
     weight: float = Field(default=0.0)
+    match_status: str = "not_matched"
     supporting: list[str] = Field(default_factory=list)
     conflicting: list[str] = Field(default_factory=list)
     explanation: str = ""
@@ -72,9 +73,13 @@ class ReasoningTrace(BaseModel):
     """Final structured reasoning output passed to the LLM layer."""
 
     question: str
+    domain: str = "general"
     chart_data: dict
+    relevant_factors: dict = Field(default_factory=dict)
     matched_rules: list[Evidence] = Field(default_factory=list)
     supporting_evidence: list[Evidence] = Field(default_factory=list)
     conflicting_evidence: list[Evidence] = Field(default_factory=list)
     overall_confidence: float = Field(default=0.0, ge=0.0, le=100.0)
     reasoning_summary: str = ""
+    reasoning_steps: list[dict] = Field(default_factory=list)
+    suggested_follow_up_topics: list[str] = Field(default_factory=list)

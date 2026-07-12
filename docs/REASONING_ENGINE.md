@@ -9,14 +9,24 @@ The Reasoning Engine turns a structured birth chart and a user question into a `
 The Reasoning Engine is split into two layers:
 
 1. **Evidence & Rule Evaluation Engine** — evaluates individual rules against the chart.
-2. **Reasoning Engine** (future) — consumes the `ReasoningTrace` and may enrich it with timing, dasha, and chart synthesis.
+2. **Astrological Reasoning Engine** — orchestrates question analysis, rule retrieval, evidence evaluation, conflict resolution, confidence calculation, and structured reasoning aggregation.
 
 ```text
-Birth Chart
+Birth Chart + User Question
     ↓
-Knowledge Retrieval
+QuestionAnalyzer
     ↓
-Evidence & Rule Evaluation Engine
+RuleMatcher
+    ↓
+EvidenceEvaluator
+    ↓
+ConflictResolver
+    ↓
+ConfidenceCalculator
+    ↓
+ReasoningAggregator
+    ↓
+ReasoningSerializer
     ↓
 ReasoningTrace
     ↓
@@ -75,35 +85,94 @@ weight = rule.confidence * matched_factor_count
 overall_confidence = weighted average of supporting evidence - conflicting evidence
 ```
 
+## Astrological Reasoning Engine
+
+The Astrological Reasoning Engine emulates the analytical workflow of an experienced Vedic astrologer. It never generates natural language and never communicates with users.
+
+### Components
+
+- **QuestionAnalyzer** — determine the astrological domain and relevant entities.
+- **RuleMatcher** — retrieve relevant rules from the knowledge base.
+- **EvidenceEvaluator** — evaluate each rule against the chart.
+- **ConflictResolver** — separate supporting and conflicting evidence.
+- **ConfidenceCalculator** — compute overall confidence.
+- **ReasoningAggregator** — build the final `ReasoningResult`.
+- **ReasoningSerializer** — convert the result into a `ReasoningTrace`.
+
+### Input
+
+```python
+ReasoningRequest(
+    question="Will I have a happy marriage?",
+    chart=AstrologicalChart(
+        maha_dasha="Jupiter",
+        antar_dasha="Saturn",
+        planets={
+            "Jupiter": {"house": 7, "sign": "Libra"},
+            "Saturn": {"house": 7, "sign": "Libra"},
+        },
+        yogas=["Gaja Kesari"],
+        doshas=["Manglik"],
+    ),
+)
+```
+
+### Output ReasoningResult
+
+```json
+{
+  "question": "Will I have a happy marriage?",
+  "domain": "marriage",
+  "relevant_factors": {
+    "houses": [7],
+    "planets": ["Venus", "Jupiter"],
+    "dashas": ["Jupiter", "Saturn"]
+  },
+  "matched_rules": [...],
+  "partially_matched_rules": [...],
+  "unmatched_rules": [...],
+  "supporting_evidence": [...],
+  "conflicting_evidence": [...],
+  "overall_confidence": 78.5,
+  "reasoning_summary": "Domain=marriage. Matched=2. Conflicting=1.",
+  "reasoning_steps": [...],
+  "suggested_follow_up_topics": ["Timing of marriage", "Spouse characteristics", "Marriage compatibility"]
+}
+```
+
 ## ReasoningTrace Schema
 
 ```json
 {
   "question": "Will I have a happy marriage?",
+  "domain": "marriage",
   "chart_data": {...},
+  "relevant_factors": {...},
   "matched_rules": [...],
   "supporting_evidence": [...],
   "conflicting_evidence": [...],
   "overall_confidence": 78.5,
-  "reasoning_summary": "..."
+  "reasoning_summary": "...",
+  "reasoning_steps": [...],
+  "suggested_follow_up_topics": [...]
 }
 ```
 
 ## Example
 
 ```python
-from divyadrishti.reasoning import EvidenceEngine
+from divyadrishti.reasoning import AstrologicalReasoningEngine
+from divyadrishti.reasoning.astrological import ReasoningRequest, AstrologicalChart
 
-chart = {
-    "planets": {
-        "Jupiter": {"house": 7, "sign": "Libra"},
-        "Saturn": {"house": 7, "sign": "Libra"},
-    },
-    "yogas": ["Gaja Kesari Yoga"],
-    "doshas": ["Mangal Dosha"],
-}
+engine = AstrologicalReasoningEngine(knowledge_engine)
 
-trace = engine.evaluate(chart, "Will I have a happy marriage?", rules)
+request = ReasoningRequest(
+    question="Will I have a happy marriage?",
+    chart=AstrologicalChart(...),
+)
+
+result = engine.reason(request)
+trace = engine.reason_trace(request)
 ```
 
 ## Extensibility
