@@ -162,6 +162,29 @@ Components:
 - `AuditLogger`
 - `KnowledgeExporter`
 
+### Explainability Engine (XAI)
+
+The Explainability Engine converts structured `ReasoningResult` into a transparent, traversable `ExplainabilityReport` with no LLM involvement.
+
+Responsibilities:
+- Build a reasoning graph.
+- Trace every rule and its source.
+- Explain supporting and conflicting evidence.
+- Break down confidence into contributions.
+- Collect classical references.
+- Generate frontend visualization data.
+- Identify limitations.
+
+Components:
+- `ExplainabilityEngine`
+- `ReasoningGraphBuilder`
+- `RuleTracer`
+- `EvidenceExplainer`
+- `ConfidenceExplainer`
+- `ReferenceCollector`
+- `VisualizationBuilder`
+- `ReportSerializer`
+
 ## Deployment Architecture
 
 ## Future Considerations
