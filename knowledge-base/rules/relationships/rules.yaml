@@ -1,0 +1,22 @@
+- rule_id: BPHS_REL_001
+  source_book: BPHS
+  chapter: "16"
+  verse: "8"
+  topic: Relationships
+  subtopic: Compatibility
+  category: relationships
+  conditions:
+    - The 7th lords and Venus/Jupiter of both charts interact harmoniously
+  astrological_factors:
+    houses: [7]
+    planets: [Venus, Jupiter]
+    topics: [relationships, compatibility]
+  interpretation: Harmonious interaction between the 7th lords and benefics of both charts supports relational compatibility.
+  supporting_notes: Compatibility also considers the Moon sign and nakshatra of both partners.
+  confidence: 0.75
+  references:
+    - BPHS Chapter 16
+  tags:
+    - relationships
+    - compatibility
+    - 7th house

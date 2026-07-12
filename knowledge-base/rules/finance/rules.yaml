@@ -1,0 +1,23 @@
+- rule_id: BPHS_2ND_001
+  source_book: BPHS
+  chapter: "23"
+  verse: "3"
+  topic: Finance
+  subtopic: Wealth Yoga
+  category: finance
+  conditions:
+    - Jupiter and Venus influence the 2nd and 11th houses
+  astrological_factors:
+    houses: [2, 11]
+    planets: [Jupiter, Venus]
+    yogas: [Dhana Yoga]
+    topics: [finance]
+  interpretation: The influence of Jupiter and Venus on the 2nd and 11th houses supports Dhana Yoga, indicating wealth accumulation.
+  supporting_notes: Dhana Yoga is formed by the combination of wealth-giving houses and benefic planets.
+  confidence: 0.8
+  references:
+    - BPHS Chapter 23
+  tags:
+    - finance
+    - wealth
+    - dhana yoga

@@ -1,0 +1,23 @@
+- rule_id: BPHS_YOGA_001
+  source_book: BPHS
+  chapter: "23"
+  verse: "2"
+  topic: Yogas
+  subtopic: Raja Yoga
+  category: yogas
+  conditions:
+    - The lords of the 9th and 10th houses combine or aspect each other
+  astrological_factors:
+    houses: [9, 10]
+    yogas: [Raja Yoga]
+    topics: [yogas, success]
+  interpretation: The combination of the 9th (fortune) and 10th (action) lords forms a Raja Yoga, indicating leadership and success.
+  supporting_notes: Raja Yoga is one of the most celebrated combinations in Vedic astrology.
+  confidence: 0.85
+  references:
+    - BPHS Chapter 23
+  tags:
+    - yogas
+    - raja yoga
+    - 9th house
+    - 10th house

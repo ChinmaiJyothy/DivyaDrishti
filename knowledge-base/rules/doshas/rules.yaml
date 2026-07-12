@@ -1,0 +1,24 @@
+- rule_id: BPHS_DSHA_001
+  source_book: BPHS
+  chapter: "7"
+  verse: "35"
+  topic: Doshas
+  subtopic: Kuja Dosha
+  category: doshas
+  conditions:
+    - Mars is placed in the 1st, 2nd, 4th, 7th, 8th, or 12th house
+  astrological_factors:
+    houses: [1, 2, 4, 7, 8, 12]
+    planets: [Mars]
+    doshas: [Mangal Dosha]
+    topics: [doshas, marriage]
+  interpretation: Mars in these houses can create Kuja Dosha, which may bring intensity or delays in marriage.
+  supporting_notes: The exact impact varies by sign, lordship, and aspects. Remedial measures are traditional.
+  confidence: 0.75
+  references:
+    - BPHS Chapter 7
+  tags:
+    - doshas
+    - kuja dosha
+    - mars
+    - marriage

@@ -1,0 +1,11 @@
+book_id: Phaladeepika
+title: Phaladeepika
+author: Mantreswara
+language: Sanskrit
+period: 13th Century CE
+source_url: "https://example.com/phaladeepika"
+description: A practical text on prediction and interpretation in Vedic astrology.
+chapters:
+  "6": "On the Effects of the 7th House"
+  "8": "Dashas and Their Effects"
+  "14": "On Wealth and Prosperity"

@@ -1,0 +1,21 @@
+- rule_id: BPHS_PLN_001
+  source_book: BPHS
+  chapter: "3"
+  verse: "1"
+  topic: Planets
+  subtopic: Sun
+  category: planets
+  conditions:
+    - The Sun is being analyzed in the chart
+  astrological_factors:
+    planets: [Sun]
+    topics: [planets, soul, authority]
+  interpretation: The Sun represents the soul, father, vitality, authority, and the core ego of the native.
+  supporting_notes: The Sun is the king of the planets and the natural significator of the 1st, 9th, and 10th houses.
+  confidence: 0.9
+  references:
+    - BPHS Chapter 3
+  tags:
+    - planets
+    - sun
+    - soul

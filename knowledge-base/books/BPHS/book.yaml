@@ -1,0 +1,13 @@
+book_id: BPHS
+title: Brihat Parashara Hora Shastra
+author: Maharishi Parashara
+language: Sanskrit
+period: Ancient
+source_url: "https://example.com/bphs"
+description: The foundational text of Vedic astrology attributed to Maharishi Parashara.
+chapters:
+  "7": "Considerations of Bhava (Houses)"
+  "10": "Considerations of Dashas (Planetary Periods)"
+  "16": "Marriage and the 7th House"
+  "19": "Effects of Planets in Signs"
+  "23": "Raja Yogas and Dhana Yogas"

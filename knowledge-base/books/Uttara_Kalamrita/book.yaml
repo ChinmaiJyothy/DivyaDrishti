@@ -1,0 +1,11 @@
+book_id: Uttara_Kalamrita
+title: Uttara Kalamrita
+author: Unknown
+language: Sanskrit
+period: 17th Century CE
+source_url: "https://example.com/uttara-kalamrita"
+description: A later text known for its detailed yoga and dasha descriptions.
+chapters:
+  "3": "Planetary Dignities and Effects"
+  "4": "Yogas"
+  "5": "Marriage and Relationships"

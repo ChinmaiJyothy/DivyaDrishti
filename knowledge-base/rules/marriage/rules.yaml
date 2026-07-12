@@ -1,0 +1,49 @@
+- rule_id: BPHS_7TH_001
+  source_book: BPHS
+  chapter: "16"
+  verse: "1"
+  topic: Marriage
+  subtopic: Harmonious Marriage
+  category: marriage
+  conditions:
+    - Jupiter is strong in the 7th house or aspects the 7th lord
+  astrological_factors:
+    houses: [7]
+    planets: [Jupiter]
+    signs: []
+    nakshatras: []
+    yogas: []
+    doshas: []
+    dashas: []
+    topics: [marriage]
+  interpretation: A strong Jupiter influencing the 7th house supports a harmonious, stable, and spiritually inclined marriage.
+  supporting_notes: Jupiter's benefic influence on the 7th house or its lord is a traditional indicator of marital happiness.
+  confidence: 0.85
+  references:
+    - BPHS Chapter 16
+  tags:
+    - marriage
+    - jupiter
+    - 7th house
+
+- rule_id: BPHS_7TH_002
+  source_book: BPHS
+  chapter: "16"
+  verse: "5"
+  topic: Marriage
+  subtopic: Delayed Marriage
+  category: marriage
+  conditions:
+    - Saturn influences the 7th house or 7th lord
+  astrological_factors:
+    houses: [7]
+    planets: [Saturn]
+    topics: [marriage]
+  interpretation: Saturn's influence on the 7th house can indicate delay or seriousness in marriage.
+  confidence: 0.75
+  references:
+    - BPHS Chapter 16
+  tags:
+    - marriage
+    - saturn
+    - delay

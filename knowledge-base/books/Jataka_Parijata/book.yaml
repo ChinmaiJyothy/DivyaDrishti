@@ -1,0 +1,11 @@
+book_id: Jataka_Parijata
+title: Jataka Parijata
+author: Vaidyanatha Dikshita
+language: Sanskrit
+period: 15th Century CE
+source_url: "https://example.com/jataka-parijata"
+description: A comprehensive text covering all branches of Vedic astrology.
+chapters:
+  "3": "Nakshatras and Their Effects"
+  "7": "Dashas and Bhuktis"
+  "9": "Yogas"

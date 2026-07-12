@@ -1,0 +1,24 @@
+- rule_id: BPHS_DSH_001
+  source_book: BPHS
+  chapter: "10"
+  verse: "1"
+  topic: Dashas
+  subtopic: Vimshottari Dasha
+  category: dashas
+  conditions:
+    - The Moon's birth nakshatra determines the starting planetary period
+  astrological_factors:
+    planets: [Moon]
+    dashas: [Vimshottari]
+    nakshatras: []
+    topics: [dashas, timing]
+  interpretation: Vimshottari Dasha begins from the lord of the Moon's nakshatra at birth and follows the fixed planetary sequence.
+  supporting_notes: The full cycle is 120 years and is the most widely used dasha system in Vedic astrology.
+  confidence: 0.9
+  references:
+    - BPHS Chapter 10
+  tags:
+    - dashas
+    - vimshottari
+    - moon
+    - timing

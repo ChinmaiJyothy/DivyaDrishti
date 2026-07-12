@@ -1,0 +1,11 @@
+book_id: Brihat_Jataka
+title: Brihat Jataka
+author: Varahamihira
+language: Sanskrit
+period: 6th Century CE
+source_url: "https://example.com/brihat-jataka"
+description: A classic text on horoscopy by Varahamihira.
+chapters:
+  "1": "The Birth and the Planets"
+  "6": "Dasas (Vimshottari and other periods)"
+  "11": "Marriage and Compatibility"

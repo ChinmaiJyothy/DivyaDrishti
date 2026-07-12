@@ -1,0 +1,21 @@
+- rule_id: BPHS_NAK_001
+  source_book: BPHS
+  chapter: "5"
+  verse: "1"
+  topic: Nakshatras
+  subtopic: Ashwini
+  category: nakshatras
+  conditions:
+    - The Moon or a planet is in Ashwini nakshatra
+  astrological_factors:
+    nakshatras: [Ashwini]
+    topics: [nakshatras, healing]
+  interpretation: Ashwini, ruled by Ketu, symbolizes swift healing, initiation, and the power to begin new ventures.
+  supporting_notes: Ashwini natives are often energetic and pioneering.
+  confidence: 0.8
+  references:
+    - BPHS Chapter 5
+  tags:
+    - nakshatras
+    - ashwini
+    - ketu

@@ -1,0 +1,24 @@
+- rule_id: BPHS_SPR_001
+  source_book: BPHS
+  chapter: "19"
+  verse: "5"
+  topic: Spirituality
+  subtopic: Spiritual Inclination
+  category: spirituality
+  conditions:
+    - Jupiter, Ketu, or the 9th/12th lords influence the 1st or 5th house
+  astrological_factors:
+    houses: [1, 5, 9, 12]
+    planets: [Jupiter, Ketu]
+    topics: [spirituality]
+  interpretation: Strong Jupiter, Ketu, or 9th/12th house influences indicate spiritual inclination, wisdom, and detachment.
+  supporting_notes: The 12th house and Ketu relate to moksha, while Jupiter and the 9th relate to dharma.
+  confidence: 0.8
+  references:
+    - BPHS Chapter 19
+  tags:
+    - spirituality
+    - jupiter
+    - ketu
+    - 9th house
+    - 12th house

@@ -1,0 +1,22 @@
+- rule_id: BPHS_6TH_001
+  source_book: BPHS
+  chapter: "7"
+  verse: "22"
+  topic: Health
+  subtopic: General Health
+  category: health
+  conditions:
+    - The 1st and 6th lords are strong and well placed
+  astrological_factors:
+    houses: [1, 6]
+    planets: []
+    topics: [health]
+  interpretation: Strong lords of the 1st and 6th houses, free from affliction, support overall health and vitality.
+  supporting_notes: This is general health guidance and not medical advice.
+  confidence: 0.75
+  references:
+    - BPHS Chapter 7
+  tags:
+    - health
+    - 1st house
+    - 6th house

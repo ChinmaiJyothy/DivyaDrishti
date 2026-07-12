@@ -1,0 +1,21 @@
+- rule_id: BPHS_HSE_001
+  source_book: BPHS
+  chapter: "7"
+  verse: "1"
+  topic: Houses
+  subtopic: First House
+  category: houses
+  conditions:
+    - The 1st house (Tanu bhava) is under consideration
+  astrological_factors:
+    houses: [1]
+    topics: [houses, personality, health]
+  interpretation: The 1st house represents the body, personality, vitality, and longevity of the native.
+  supporting_notes: The ascendant and its lord are primary indicators of the self.
+  confidence: 0.95
+  references:
+    - BPHS Chapter 7
+  tags:
+    - houses
+    - 1st house
+    - personality

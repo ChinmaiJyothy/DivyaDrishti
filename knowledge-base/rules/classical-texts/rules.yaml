@@ -1,0 +1,20 @@
+- rule_id: BPHS_CTX_001
+  source_book: BPHS
+  chapter: "1"
+  verse: "1"
+  topic: Classical Texts
+  subtopic: Authority of BPHS
+  category: classical-texts
+  conditions:
+    - A rule is sourced from Brihat Parashara Hora Shastra
+  astrological_factors:
+    topics: [classical-texts, authority]
+  interpretation: Brihat Parashara Hora Shastra is the foundational authoritative text of Vedic astrology and is preferred for core rules.
+  supporting_notes: Other classical texts may supplement or corroborate rules from BPHS.
+  confidence: 0.95
+  references:
+    - BPHS Chapter 1
+  tags:
+    - classical-texts
+    - bphs
+    - authority

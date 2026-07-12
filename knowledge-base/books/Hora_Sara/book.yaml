@@ -1,0 +1,11 @@
+book_id: Hora_Sara
+title: Hora Sara
+author: Prithuyasas
+language: Sanskrit
+period: Classical
+source_url: "https://example.com/hora-sara"
+description: A foundational text on natal astrology and prediction.
+chapters:
+  "1": "Planets and Signs"
+  "6": "Considerations of the 7th House"
+  "8": "Effects of Dashas"

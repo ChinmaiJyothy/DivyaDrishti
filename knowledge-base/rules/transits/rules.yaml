@@ -1,0 +1,23 @@
+- rule_id: BPHS_TRN_001
+  source_book: BPHS
+  chapter: "12"
+  verse: "1"
+  topic: Transits
+  subtopic: Sade Sati
+  category: transits
+  conditions:
+    - Saturn transits the 12th, 1st, and 2nd houses from the Moon sign
+  astrological_factors:
+    planets: [Saturn]
+    signs: []
+    dashas: []
+    topics: [transits, sade sati]
+  interpretation: Saturn's transit over the Moon sign (Sade Sati) is a period of maturity, discipline, and karmic lessons.
+  supporting_notes: The effects are modified by the overall strength of Saturn and the Moon in the natal chart.
+  confidence: 0.75
+  references:
+    - BPHS Chapter 12
+  tags:
+    - transits
+    - saturn
+    - sade sati

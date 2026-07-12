@@ -1,0 +1,10 @@
+book_id: Laghu_Parashari
+title: Laghu Parashari
+author: Parashara
+language: Sanskrit
+period: Classical
+source_url: "https://example.com/laghu-parashari"
+description: A concise summary of Parashara's system, focused on Vimshottari Dasha.
+chapters:
+  "1": "General Principles"
+  "2": "Dasha and Antardasha Results"

@@ -1,0 +1,22 @@
+- rule_id: BPHS_10TH_001
+  source_book: BPHS
+  chapter: "7"
+  verse: "12"
+  topic: Career
+  subtopic: Career Success
+  category: career
+  conditions:
+    - The 10th lord is strong and well placed in the 10th house
+  astrological_factors:
+    houses: [10]
+    planets: []
+    topics: [career]
+  interpretation: A strong 10th lord in the 10th house indicates career stability, recognition, and authority.
+  supporting_notes: The 10th house is the primary house for profession and public status.
+  confidence: 0.85
+  references:
+    - BPHS Chapter 7
+  tags:
+    - career
+    - 10th house
+    - status

@@ -1,0 +1,11 @@
+book_id: Saravali
+title: Saravali
+author: Kalyana Varma
+language: Sanskrit
+period: 10th Century CE
+source_url: "https://example.com/saravali"
+description: A detailed treatise on the effects of planets, signs, and houses.
+chapters:
+  "1": "Definitions and Preliminaries"
+  "4": "Planetary Effects"
+  "12": "On Marriage"
