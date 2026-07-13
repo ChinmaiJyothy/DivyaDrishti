@@ -227,7 +227,7 @@ export function Navbar({ onMenuClick, onContextToggle, className }: NavbarProps)
           >
             <Search className="h-5 w-5" />
           </Button>
-          <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
+          <SearchCommand open={searchOpen} onOpenChange={(open) => setSearchOpen(open)} />
 
           <NotificationMenu />
           <LanguageSelector />
