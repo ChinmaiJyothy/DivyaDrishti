@@ -2,6 +2,7 @@
 
 from datetime import datetime, timezone
 
+from sqlalchemy import or_
 from sqlalchemy.orm import Session, selectinload
 
 from divyadrishti.models import Conversation, Message
@@ -13,13 +14,26 @@ class ConversationRepository:
     def __init__(self, db: Session) -> None:
         self.db = db
 
-    def list_by_user(self, user_id: int) -> list[Conversation]:
-        return (
+    def list_by_user(self, user_id: int, q: str | None = None) -> list[Conversation]:
+        query = (
             self.db.query(Conversation)
             .filter(Conversation.user_id == user_id, Conversation.is_deleted.is_(False))
-            .options(selectinload(Conversation.messages).selectinload(Message.reasoning_results))
-            .all()
+            .options(
+                selectinload(Conversation.messages).selectinload(Message.reasoning_results),
+                selectinload(Conversation.messages).selectinload(Message.explainability_reports),
+            )
         )
+
+        if q:
+            like = f"%{q}%"
+            query = query.filter(
+                or_(
+                    Conversation.title.ilike(like),
+                    Conversation.messages.any(Message.content.ilike(like)),
+                )
+            )
+
+        return query.order_by(Conversation.is_pinned.desc(), Conversation.updated_at.desc()).all()
 
     def get_by_id(self, conversation_id: int, user_id: int) -> Conversation | None:
         return (
@@ -29,7 +43,10 @@ class ConversationRepository:
                 Conversation.user_id == user_id,
                 Conversation.is_deleted.is_(False),
             )
-            .options(selectinload(Conversation.messages).selectinload(Message.reasoning_results))
+            .options(
+                selectinload(Conversation.messages).selectinload(Message.reasoning_results),
+                selectinload(Conversation.messages).selectinload(Message.explainability_reports),
+            )
             .first()
         )
 

@@ -8,6 +8,7 @@ from divyadrishti.models import User
 from divyadrishti.schemas.conversation import (
     ConversationCreateRequest,
     ConversationResponse,
+    ConversationUpdateRequest,
     MessageCreateRequest,
     MessageResponse,
 )
@@ -32,9 +33,11 @@ def create_conversation(
 
 @router.get("", response_model=list[ConversationResponse])
 def list_conversations(
-    current_user: User = Depends(get_current_user), db: Session = Depends(get_db)
+    q: str | None = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
-    return _service(db).list(current_user.id)
+    return _service(db).list(current_user.id, q)
 
 
 @router.get("/{conversation_id}", response_model=ConversationResponse)
@@ -47,6 +50,20 @@ def get_conversation(
     if not conversation:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
     return conversation
+
+
+@router.patch("/{conversation_id}", response_model=ConversationResponse)
+def update_conversation(
+    conversation_id: int,
+    body: ConversationUpdateRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    service = _service(db)
+    conversation = service.get(conversation_id, current_user.id)
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
+    return service.update(conversation, body.model_dump(exclude_unset=True))
 
 
 @router.post("/{conversation_id}/messages", response_model=MessageResponse)
@@ -64,6 +81,23 @@ def add_message(
         body.content,
         body.ai_response_json,
     )
+
+
+@router.get("/{conversation_id}/messages/{message_id}", response_model=MessageResponse)
+def get_message(
+    conversation_id: int,
+    message_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    service = _service(db)
+    conversation = service.get(conversation_id, current_user.id)
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
+    for message in conversation.messages:
+        if message.id == message_id:
+            return message
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")
 
 
 @router.post("/{conversation_id}/archive")
@@ -92,6 +126,34 @@ def resume_conversation(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
     service.resume(conversation)
     return {"detail": "Conversation resumed"}
+
+
+@router.post("/{conversation_id}/pin")
+def pin_conversation(
+    conversation_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    service = _service(db)
+    conversation = service.get(conversation_id, current_user.id)
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
+    service.update(conversation, {"is_pinned": True})
+    return {"detail": "Conversation pinned"}
+
+
+@router.post("/{conversation_id}/unpin")
+def unpin_conversation(
+    conversation_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    service = _service(db)
+    conversation = service.get(conversation_id, current_user.id)
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
+    service.update(conversation, {"is_pinned": False})
+    return {"detail": "Conversation unpinned"}
 
 
 @router.delete("/{conversation_id}")

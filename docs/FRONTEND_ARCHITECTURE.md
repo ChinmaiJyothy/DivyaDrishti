@@ -116,6 +116,17 @@ frontend/
 
 See `DASHBOARD.md` for the detailed dashboard design.
 
+## AI Chat Experience
+
+- Chat entry point: `app/(dashboard)/chat/page.tsx`.
+- Chat workspace: `components/chat/chat-workspace.tsx` with `ConversationSidebar`, `ChatPanel`, and `ChatContextPanel`.
+- Streaming messages: `services/chat.service.ts` and `hooks/use-chat.ts`.
+- Markdown and explainability: `components/chat/message-item.tsx` and `components/chat/explainability-panel.tsx`.
+- Conversations list and search: `hooks/use-conversations.ts` and `components/chat/conversation-sidebar.tsx`.
+- Backend integration: `ai/conversation_engine`, `reasoning`, `explainability`, and `knowledge` engines exposed via `POST /chat/{conversation_id}` SSE.
+
+See `CHAT_ARCHITECTURE.md` for the detailed chat design.
+
 ## Testing Strategy
 
 - **Unit tests** with Vitest and React Testing Library.

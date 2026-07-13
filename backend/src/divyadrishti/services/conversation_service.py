@@ -13,8 +13,8 @@ class ConversationService:
         self.db = db
         self.repo = ConversationRepository(db)
 
-    def list(self, user_id: int) -> list[Conversation]:
-        return self.repo.list_by_user(user_id)
+    def list(self, user_id: int, q: str | None = None) -> list[Conversation]:
+        return self.repo.list_by_user(user_id, q)
 
     def get(self, conversation_id: int, user_id: int) -> Conversation | None:
         return self.repo.get_by_id(conversation_id, user_id)
@@ -23,7 +23,21 @@ class ConversationService:
         conversation = Conversation(user_id=user_id, **data)
         return self.repo.create(conversation)
 
-    def add_message(self, conversation_id: int, user_id: int, role: str, content: str, ai_response: dict | None = None) -> Message:
+    def update(self, conversation: Conversation, data: dict) -> Conversation:
+        allowed = {"title", "birth_profile_id", "is_archived", "is_pinned"}
+        for key, value in data.items():
+            if key in allowed and value is not None:
+                setattr(conversation, key, value)
+        return self.repo.update(conversation)
+
+    def add_message(
+        self,
+        conversation_id: int,
+        user_id: int,
+        role: str,
+        content: str,
+        ai_response: dict | None = None,
+    ) -> Message:
         conversation = self.get(conversation_id, user_id)
         if not conversation:
             raise ValueError("Conversation not found")
