@@ -28,6 +28,8 @@ The AI Chat module is a dedicated workspace for Vedic astrology conversations. I
    - `reasoning_results` as `ReasoningResult`
    - `explainability_reports` as `ExplainabilityReport`
 9. The endpoint returns the response as a `text/event-stream` with SSE events: `user`, `delta`, `metadata`, `error`, `done`.
+10. `POST /chat/{conversation_id}` accepts an optional `message_id` to retry, regenerate, or edit an existing user message; the service reuses the user message, updates its content if changed, and deletes any assistant messages after it.
+11. `DELETE /conversations/{conversation_id}/messages/{message_id}` deletes a message and all messages after it.
 
 ### Key Components
 
@@ -51,28 +53,33 @@ The AI Chat module is a dedicated workspace for Vedic astrology conversations. I
 ### Layout
 
 ```
-app/(dashboard)/chat/
-├── layout.tsx          # Chat layout with null context panel; ChatWorkspace owns sidebars
-├── page.tsx            # ChatPage
+app/(dashboard)/
+├── layout.tsx               # Chooses ChatLayout for chat routes, DashboardLayout otherwise
+├── ask/page.tsx             # Creates a conversation and redirects to /chat/{id}?question=...
+├── chat/page.tsx            # Welcome screen that redirects to /ask?question=...
+├── chat/[id]/page.tsx       # Renders ChatWorkspace inside ChatLayout
 
 components/chat/
-├── chat-workspace.tsx     # Three-pane layout + mobile drawers
-├── conversation-sidebar.tsx
-├── conversation-list.tsx
-├── chat-panel.tsx
-├── chat-header.tsx
-├── message-list.tsx
-├── message-item.tsx
-├── message-bubble.tsx
-├── message-actions.tsx
-├── chat-input.tsx
-├── follow-up-suggestions.tsx
-├── chat-context-panel.tsx
-├── explainability-panel.tsx
-├── reasoning-graph.tsx
-├── confidence-breakdown.tsx
-├── suggested-questions.tsx
-└── welcome-chat.tsx
+├── chat-layout.tsx          # ChatLayout: sidebar + main + right context panel
+├── chat-context.tsx         # ChatContextProvider + useChatContext
+├── chat-workspace.tsx       # Chat header, message list, input, suggestions
+├── chat-header.tsx          # Title, rename, archive, delete, open context panel
+├── conversation-sidebar.tsx # Searchable conversation list with group/pin/archive
+├── conversation-item.tsx    # Single conversation row with actions
+├── new-chat-button.tsx      # Button to create a new conversation
+├── message-list.tsx         # Virtualized list (react-virtuoso)
+├── message-item.tsx         # Message bubble + explainability panel
+├── message-bubble.tsx       # Markdown rendering with code blocks
+├── message-actions.tsx      # Copy, edit, delete, retry, regenerate, stop
+├── streaming-message.tsx    # Inline assistant message while streaming
+├── chat-input.tsx           # Textarea with send/stop and quick prompts
+├── chat-context-panel.tsx   # Active message details + suggested follow-ups
+├── explainability-panel.tsx # Expandable explainability inside message item
+├── reasoning-graph.tsx      # Graph visualization of reasoning
+├── confidence-breakdown.tsx # Confidence score breakdown
+├── suggested-questions.tsx  # Follow-up question chips
+├── welcome-chat.tsx         # Empty state with example prompts
+└── typing-indicator.tsx     # Animated dots shown while waiting
 ```
 
 ### State
@@ -80,8 +87,10 @@ components/chat/
 - `useChat` hook in `frontend/hooks/use-chat.ts` owns:
   - `conversationId`
   - `messages` (local optimistic list)
-  - `streaming` / `isLoading` / `error`
-  - `stop`, `retry`, `regenerate`, `edit`, `delete` operations
+  - `isStreaming` / `isLoading` / `error`
+  - `sendMessage(content, messageId?)` supports new messages and retry/regenerate/edit
+  - `stop`, `retry`, `regenerate`, `editMessage`, `deleteMessage` operations
+  - Invalidates the `conversation` query after each completed/failed stream to keep the server and UI in sync
 - `useConversations` from `use-conversations.ts` provides list/search/archive/delete.
 - `useCurrentProfileChart` and `useBirthProfiles` provide the birth chart context.
 - `TanStack Query` caches `conversation` and `messages` and invalidates after mutations.
@@ -118,8 +127,8 @@ components/chat/
 
 ## API Integration
 
-- `services/chat.service.ts` — `streamChatMessage`.
-- `services/conversation.service.ts` — `list`, `get`, `create`, `update`, `archive`, `delete`, `search`.
+- `services/chat.service.ts` — `streamChatMessage` (supports `message_id` for retry/edit/regenerate).
+- `services/conversation.service.ts` — `list`, `get`, `create`, `update`, `archive`, `delete`, `search`, `deleteMessage`.
 - `services/birth-profile.service.ts` — `getProfile`, `getLatestProfileChart`.
 - `hooks/use-chat.ts` — streaming, `sendMessage`, `stop`, `retry`, `regenerate`, `edit`, `delete`.
 

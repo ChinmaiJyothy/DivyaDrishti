@@ -19,6 +19,8 @@
 - `cp .env.example .env.local`
 - `npm install`
 - `npm run dev`
+- `npm run build`
+- `npm run lint`
 - `npm run test:run`
 - `npm run test:e2e`
 

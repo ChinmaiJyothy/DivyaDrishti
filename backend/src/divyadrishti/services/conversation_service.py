@@ -30,6 +30,21 @@ class ConversationService:
                 setattr(conversation, key, value)
         return self.repo.update(conversation)
 
+    def get_message(self, message_id: int, user_id: int) -> Message | None:
+        return self.repo.get_message(message_id, user_id)
+
+    def delete_messages_after(self, conversation_id: int, message_id: int, user_id: int) -> int:
+        conversation = self.get(conversation_id, user_id)
+        if not conversation:
+            raise ValueError("Conversation not found")
+        return self.repo.delete_messages_after(conversation_id, message_id)
+
+    def delete_messages_from(self, conversation_id: int, message_id: int, user_id: int) -> int:
+        conversation = self.get(conversation_id, user_id)
+        if not conversation:
+            raise ValueError("Conversation not found")
+        return self.repo.delete_messages_from(conversation_id, message_id)
+
     def add_message(
         self,
         conversation_id: int,

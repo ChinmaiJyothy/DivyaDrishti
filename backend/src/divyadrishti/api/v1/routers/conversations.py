@@ -170,6 +170,21 @@ def delete_conversation(
     return {"detail": "Conversation deleted"}
 
 
+@router.delete("/{conversation_id}/messages/{message_id}")
+def delete_message(
+    conversation_id: int,
+    message_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    service = _service(db)
+    conversation = service.get(conversation_id, current_user.id)
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found")
+    service.delete_messages_from(conversation_id, message_id, current_user.id)
+    return {"detail": "Messages deleted"}
+
+
 @router.get("/{conversation_id}/export")
 def export_conversation(
     conversation_id: int,

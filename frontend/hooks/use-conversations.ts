@@ -3,24 +3,27 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
-  addMessage,
   archiveConversation,
   createConversation,
   deleteConversation,
+  deleteMessage,
   getConversation,
   getConversations,
+  pinConversation,
   resumeConversation,
+  unpinConversation,
+  updateConversation,
   type CreateConversationInput,
-  type CreateMessageInput,
+  type UpdateConversationInput,
 } from "@/services/conversation.service";
-import type { Conversation, Message } from "@/types";
+import type { Conversation } from "@/types";
 
 const QUERY_KEY = ["conversations"];
 
-export function useConversations() {
+export function useConversations(q?: string) {
   return useQuery<Conversation[]>({
-    queryKey: QUERY_KEY,
-    queryFn: getConversations,
+    queryKey: [...QUERY_KEY, q ?? ""],
+    queryFn: () => getConversations(q),
     retry: 1,
   });
 }
@@ -45,13 +48,14 @@ export function useCreateConversation() {
   });
 }
 
-export function useAddMessage(conversationId: string) {
+export function useUpdateConversation(id: string) {
   const queryClient = useQueryClient();
 
-  return useMutation<Message, Error, CreateMessageInput>({
-    mutationFn: (input) => addMessage(conversationId, input),
+  return useMutation<Conversation, Error, UpdateConversationInput>({
+    mutationFn: (input) => updateConversation(id, input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [...QUERY_KEY, conversationId] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEY, id] });
     },
   });
 }
@@ -78,6 +82,30 @@ export function useResumeConversation() {
   });
 }
 
+export function usePinConversation() {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, string>({
+    mutationFn: pinConversation,
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEY, id] });
+    },
+  });
+}
+
+export function useUnpinConversation() {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, string>({
+    mutationFn: unpinConversation,
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEY, id] });
+    },
+  });
+}
+
 export function useDeleteConversation() {
   const queryClient = useQueryClient();
 
@@ -85,6 +113,18 @@ export function useDeleteConversation() {
     mutationFn: deleteConversation,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+    },
+  });
+}
+
+export function useDeleteMessage(conversationId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, Error, string>({
+    mutationFn: (messageId) => deleteMessage(conversationId, messageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEY, conversationId] });
     },
   });
 }

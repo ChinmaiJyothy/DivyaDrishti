@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2, Send } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -15,19 +16,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateConversation } from "@/hooks/use-conversations";
+import { useSettings } from "@/providers/settings-provider";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AskPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const create = useCreateConversation();
   const toast = useToast();
-  const [question, setQuestion] = useState("");
+  const { settings } = useSettings();
+
+  const [question, setQuestion] = useState(searchParams.get("question") ?? "");
   const [domain, setDomain] = useState("general");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await create.mutateAsync({ title: question, domain });
+    const conversation = await create.mutateAsync({
+      title: question,
+      domain,
+      birth_profile_id: settings.currentProfileId ?? undefined,
+    });
     toast.success("Conversation started");
-    setQuestion("");
+    router.push(`/chat/${conversation.id}?question=${encodeURIComponent(question)}`);
   };
 
   return (

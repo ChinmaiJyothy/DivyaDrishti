@@ -37,13 +37,13 @@ class MessageResponse(BaseModel):
 
         if data.get("reasoning_results"):
             first = data["reasoning_results"][0]
-            data["reasoning_result"] = _sqlalchemy_to_dict(first)
+            data["reasoning_result"] = first.chart_data if first else None
         else:
             data["reasoning_result"] = None
 
         if data.get("explainability_reports"):
             first = data["explainability_reports"][0]
-            data["explainability_report"] = _sqlalchemy_to_dict(first)
+            data["explainability_report"] = first.report_data_json if first else None
         else:
             data["explainability_report"] = None
 

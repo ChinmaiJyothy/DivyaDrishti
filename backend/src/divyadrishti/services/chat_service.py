@@ -39,12 +39,32 @@ class ChatService:
         Yields SSE-shaped dictionaries: user, delta, metadata, error, done.
         """
         try:
-            user_message = self.conversation_service.add_message(
-                conversation.id,
-                conversation.user_id,
-                "user",
-                request.content,
-            )
+            if request.message_id:
+                user_message = self.conversation_service.get_message(
+                    request.message_id, conversation.user_id
+                )
+                if not user_message or user_message.conversation_id != conversation.id:
+                    raise ValueError("User message not found")
+                if user_message.content != request.content:
+                    user_message.content = request.content
+                    self.db.commit()
+                    self.db.refresh(user_message)
+                self.conversation_service.delete_messages_after(
+                    conversation.id, user_message.id, conversation.user_id
+                )
+                # Reload conversation after deleting messages so _prime_memory is consistent.
+                conversation = self.conversation_service.get(
+                    conversation.id, conversation.user_id
+                )
+                if not conversation:
+                    raise ValueError("Conversation not found")
+            else:
+                user_message = self.conversation_service.add_message(
+                    conversation.id,
+                    conversation.user_id,
+                    "user",
+                    request.content,
+                )
             yield {
                 "event": "user",
                 "message_id": user_message.id,
@@ -245,7 +265,7 @@ class ChatService:
             conversation_id=conversation_id,
             message_id=assistant_message.id,
             domain=reasoning_result.domain,
-            chart_data=reasoning_result.relevant_factors.model_dump(),
+            chart_data=reasoning_result.model_dump(),
             matched_rules_json=[r.model_dump() for r in reasoning_result.matched_rules],
             supporting_evidence_json=[r.model_dump() for r in reasoning_result.supporting_evidence],
             conflicting_evidence_json=[r.model_dump() for r in reasoning_result.conflicting_evidence],

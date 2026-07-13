@@ -14,6 +14,8 @@ The DivyaDrishti frontend is a Next.js 15 application built with React 19, TypeS
 | Tailwind CSS | Utility-first styling |
 | shadcn/ui | Headless, accessible UI primitives |
 | Framer Motion | Subtle animations |
+| React Virtuoso | Virtualized message list |
+| React Markdown | Markdown rendering with `remark-gfm` |
 | React Hook Form | Form state management |
 | Zod | Schema validation |
 | TanStack Query | Server state management |
@@ -76,7 +78,7 @@ frontend/
 
 - **Local UI state**: React `useState`/`useReducer` and custom hooks.
 - **Server state**: TanStack Query (via `QueryProvider`).
-- **Global context**: `ThemeProvider`, `AuthProvider`, `SettingsProvider`, `ToastProvider`.
+- **Global context**: `ThemeProvider`, `AuthProvider`, `SettingsProvider`, `ToastProvider`, `ChatContextProvider`.
 - **Form state**: React Hook Form + Zod.
 
 ## Responsive Strategy
@@ -93,6 +95,7 @@ frontend/
 | `AppShell` | Application shell with navbar, sidebar, and footer |
 | `AuthLayout` | Centered authentication card layout |
 | `DashboardLayout` | AppShell for dashboard views |
+| `ChatLayout` | Three-pane layout (sidebar, workspace, context panel) for `/chat` routes |
 | `AdminLayout` | AppShell for admin views |
 | `PageContainer` | Consistent page padding and max-width |
 
@@ -118,11 +121,12 @@ See `DASHBOARD.md` for the detailed dashboard design.
 
 ## AI Chat Experience
 
-- Chat entry point: `app/(dashboard)/chat/page.tsx`.
-- Chat workspace: `components/chat/chat-workspace.tsx` with `ConversationSidebar`, `ChatPanel`, and `ChatContextPanel`.
-- Streaming messages: `services/chat.service.ts` and `hooks/use-chat.ts`.
-- Markdown and explainability: `components/chat/message-item.tsx` and `components/chat/explainability-panel.tsx`.
-- Conversations list and search: `hooks/use-conversations.ts` and `components/chat/conversation-sidebar.tsx`.
+- Chat entry points: `app/(dashboard)/chat/page.tsx` (welcome), `app/(dashboard)/ask/page.tsx` (question + domain), and `app/(dashboard)/chat/[id]/page.tsx` (existing conversation).
+- Chat layout: `components/chat/chat-layout.tsx` wraps a route in `ChatContextProvider` with `ConversationSidebar`, `ChatWorkspace`, and `ChatContextPanel`.
+- Chat workspace: `components/chat/chat-workspace.tsx` handles message display, input, follow-up suggestions, and auto-sending a `?question=` query parameter.
+- Streaming messages: `services/chat.service.ts` and `hooks/use-chat.ts` support streaming SSE, cancellation, `message_id` retry/regenerate/edit, and `deleteMessage`.
+- Markdown and explainability: `components/chat/message-bubble.tsx` renders `react-markdown`; `components/chat/message-item.tsx` and `components/chat/explainability-panel.tsx` surface evidence, references, confidence, reasoning graph, and follow-up questions.
+- Conversations list and search: `hooks/use-conversations.ts` and `components/chat/conversation-sidebar.tsx` provide group, pin, archive, rename, and delete actions.
 - Backend integration: `ai/conversation_engine`, `reasoning`, `explainability`, and `knowledge` engines exposed via `POST /chat/{conversation_id}` SSE.
 
 See `CHAT_ARCHITECTURE.md` for the detailed chat design.

@@ -69,8 +69,52 @@ class ConversationRepository:
         self.db.refresh(conversation)
         return conversation
 
+    def get_message(self, message_id: int, user_id: int) -> Message | None:
+        return (
+            self.db.query(Message)
+            .join(Conversation)
+            .filter(
+                Message.id == message_id,
+                Conversation.user_id == user_id,
+            )
+            .first()
+        )
+
+    def delete_messages_after(self, conversation_id: int, message_id: int) -> int:
+        count = (
+            self.db.query(Message)
+            .filter(
+                Message.conversation_id == conversation_id,
+                Message.id > message_id,
+            )
+            .delete(synchronize_session=False)
+        )
+        conversation = self.db.query(Conversation).filter(Conversation.id == conversation_id).first()
+        if conversation:
+            conversation.updated_at = datetime.now(timezone.utc)
+        self.db.commit()
+        return count
+
+    def delete_messages_from(self, conversation_id: int, message_id: int) -> int:
+        count = (
+            self.db.query(Message)
+            .filter(
+                Message.conversation_id == conversation_id,
+                Message.id >= message_id,
+            )
+            .delete(synchronize_session=False)
+        )
+        conversation = self.db.query(Conversation).filter(Conversation.id == conversation_id).first()
+        if conversation:
+            conversation.updated_at = datetime.now(timezone.utc)
+        self.db.commit()
+        return count
+
     def add_message(self, message: Message) -> Message:
         self.db.add(message)
+        conversation = self.db.query(Conversation).filter(Conversation.id == message.conversation_id).first()
+        if conversation:
+            conversation.updated_at = datetime.now(timezone.utc)
         self.db.commit()
         self.db.refresh(message)
         return message
