@@ -6,9 +6,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from divyadrishti.api.v1.routers import health
+import divyadrishti.models  # noqa: F401
+from divyadrishti.api.v1.routers import auth, birth_profiles, conversations, feedback, health, preferences, users
 from divyadrishti.config import get_settings
 from divyadrishti.database import Base, engine
+from divyadrishti.security.middleware import PermissionMiddleware
 from divyadrishti.utils import configure_logging
 
 settings = get_settings()
@@ -31,6 +33,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(PermissionMiddleware)
 app.add_middleware(CorrelationIdMiddleware)
 app.add_middleware(
     CORSMiddleware,
@@ -41,6 +44,12 @@ app.add_middleware(
 )
 
 app.include_router(health.router, prefix="/api/v1", tags=["health"])
+app.include_router(auth.router, prefix="/api/v1")
+app.include_router(users.router, prefix="/api/v1")
+app.include_router(birth_profiles.router, prefix="/api/v1")
+app.include_router(conversations.router, prefix="/api/v1")
+app.include_router(preferences.router, prefix="/api/v1")
+app.include_router(feedback.router, prefix="/api/v1")
 
 
 @app.exception_handler(Exception)

@@ -185,6 +185,40 @@ Components:
 - `VisualizationBuilder`
 - `ReportSerializer`
 
+### Authentication, User Profiles & Birth Chart Management
+
+This module provides persistent identity, preference, profile, and conversation storage.
+
+Responsibilities:
+- Register and authenticate users.
+- Issue and rotate JWT access/refresh tokens.
+- Hash passwords with Argon2id.
+- Manage user roles and permissions.
+- Store user preferences and multiple birth profiles.
+- Persist generated birth charts, planet positions, houses, and dashas.
+- Store conversation history, messages, reasoning results, and explainability reports.
+- Collect user feedback and uploaded books.
+- Maintain audit logs and knowledge versions.
+- Enforce resource ownership and soft deletes.
+
+Components:
+- `AuthenticationService`
+- `UserService`
+- `PreferenceService`
+- `BirthProfileService`
+- `BirthChartService`
+- `ConversationService`
+- `FeedbackService`
+- `AuthorizationService`
+- `UserRepository`
+- `BirthProfileRepository`
+- `ConversationRepository`
+- `PreferenceRepository`
+- `FeedbackRepository`
+- Security: `hash_password`, `verify_password`, JWT tokens, `PermissionMiddleware`, `InMemoryRateLimiter`
+- Database models: `User`, `Role`, `UserPreference`, `BirthProfile`, `BirthChart`, `PlanetPosition`, `HousePosition`, `Dasha`, `Conversation`, `Message`, `ReasoningResult`, `ExplainabilityReport`, `Feedback`, `UploadedBook`, `KnowledgeVersion`, `AuditLog`, `RefreshToken`, `UserSession`
+- API routers: `auth`, `users`, `birth_profiles`, `conversations`, `preferences`, `feedback`
+
 ## Deployment Architecture
 
 ## Future Considerations

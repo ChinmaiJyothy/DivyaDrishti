@@ -37,6 +37,8 @@ dependencies = [
     "pymupdf>=1.23.0",
     "pypdf>=4.0.0",
     "langdetect>=1.0.9",
+    "argon2-cffi>=23.0.0",
+    "email-validator>=2.0.0",
 ]
 
 [project.optional-dependencies]

@@ -1,0 +1,58 @@
+"""Conversation service."""
+
+from sqlalchemy.orm import Session
+
+from divyadrishti.models import Conversation, Message
+from divyadrishti.repositories import ConversationRepository
+
+
+class ConversationService:
+    """Business logic for conversations."""
+
+    def __init__(self, db: Session) -> None:
+        self.db = db
+        self.repo = ConversationRepository(db)
+
+    def list(self, user_id: int) -> list[Conversation]:
+        return self.repo.list_by_user(user_id)
+
+    def get(self, conversation_id: int, user_id: int) -> Conversation | None:
+        return self.repo.get_by_id(conversation_id, user_id)
+
+    def create(self, user_id: int, data: dict) -> Conversation:
+        conversation = Conversation(user_id=user_id, **data)
+        return self.repo.create(conversation)
+
+    def add_message(self, conversation_id: int, user_id: int, role: str, content: str, ai_response: dict | None = None) -> Message:
+        conversation = self.get(conversation_id, user_id)
+        if not conversation:
+            raise ValueError("Conversation not found")
+        message = Message(
+            conversation_id=conversation_id,
+            role=role,
+            content=content,
+            ai_response_json=ai_response,
+        )
+        return self.repo.add_message(message)
+
+    def archive(self, conversation: Conversation) -> Conversation:
+        conversation.is_archived = True
+        return self.repo.update(conversation)
+
+    def resume(self, conversation: Conversation) -> Conversation:
+        conversation.is_archived = False
+        return self.repo.update(conversation)
+
+    def delete(self, conversation: Conversation) -> Conversation:
+        return self.repo.soft_delete(conversation)
+
+    def export(self, conversation: Conversation) -> dict:
+        return {
+            "id": conversation.id,
+            "title": conversation.title,
+            "domain": conversation.domain,
+            "messages": [
+                {"role": msg.role, "content": msg.content, "created_at": msg.created_at.isoformat()}
+                for msg in conversation.messages
+            ],
+        }

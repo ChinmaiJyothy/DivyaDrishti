@@ -3,6 +3,7 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+import divyadrishti.models  # noqa: F401
 from divyadrishti.config import get_settings
 from divyadrishti.database import Base
 
