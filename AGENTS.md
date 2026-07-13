@@ -14,6 +14,14 @@
 - `ruff check .`
 - `mypy .`
 
+### Frontend
+- `cd frontend`
+- `cp .env.example .env.local`
+- `npm install`
+- `npm run dev`
+- `npm run test:run`
+- `npm run test:e2e`
+
 ### Docker
 - `docker-compose up --build`
 

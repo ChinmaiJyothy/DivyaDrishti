@@ -219,6 +219,17 @@ Components:
 - Database models: `User`, `Role`, `UserPreference`, `BirthProfile`, `BirthChart`, `PlanetPosition`, `HousePosition`, `Dasha`, `Conversation`, `Message`, `ReasoningResult`, `ExplainabilityReport`, `Feedback`, `UploadedBook`, `KnowledgeVersion`, `AuditLog`, `RefreshToken`, `UserSession`
 - API routers: `auth`, `users`, `birth_profiles`, `conversations`, `preferences`, `feedback`
 
+## Frontend Architecture
+
+The frontend is a Next.js 15 application with React 19, TypeScript, Tailwind CSS, and shadcn/ui. It is organized as a design-system-first foundation with a clear separation of components, layout, providers, and features. See `FRONTEND_ARCHITECTURE.md` and `DESIGN_SYSTEM.md` for details.
+
+Key responsibilities:
+- Reusable, theme-aware UI components in `components/ui/`
+- Layout shells for auth, dashboard, and admin in `components/layout/`
+- Global providers for theme, query, toast, auth, and settings in `providers/`
+- Feature modules in `features/` that bundle domain-specific code
+- Vitest and Playwright testing infrastructure
+
 ## Deployment Architecture
 
 ## Future Considerations
