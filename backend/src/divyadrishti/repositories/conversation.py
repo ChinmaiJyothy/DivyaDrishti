@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 
 from divyadrishti.models import Conversation, Message
 
@@ -17,6 +17,7 @@ class ConversationRepository:
         return (
             self.db.query(Conversation)
             .filter(Conversation.user_id == user_id, Conversation.is_deleted.is_(False))
+            .options(selectinload(Conversation.messages).selectinload(Message.reasoning_results))
             .all()
         )
 
@@ -28,6 +29,7 @@ class ConversationRepository:
                 Conversation.user_id == user_id,
                 Conversation.is_deleted.is_(False),
             )
+            .options(selectinload(Conversation.messages).selectinload(Message.reasoning_results))
             .first()
         )
 

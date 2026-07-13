@@ -104,6 +104,18 @@ frontend/
 - `loading.tsx` shows skeletons during suspense.
 - `ErrorState`, `EmptyState`, and `Skeleton` components are reusable across the app.
 
+## Dashboard & User Workspace
+
+- Dashboard entry point: `app/(dashboard)/page.tsx`.
+- Dashboard layout: `components/layout/dashboard-layout.tsx` with `Navbar`, `Sidebar`, `MobileNav`, `BottomNav`, and `ContextPanel`.
+- Dashboard widgets live in `components/dashboard/`.
+- Feature pages: `/ask`, `/profiles`, `/charts`, `/conversations`, `/reports`, `/knowledge`, `/settings`, `/profile`, `/feedback`, `/admin`.
+- API services: `services/` and TanStack Query hooks: `hooks/`.
+- Authentication state is managed by `AuthProvider` and persisted via `localStorage` tokens.
+- User context (language, current profile) is managed by `SettingsProvider`.
+
+See `DASHBOARD.md` for the detailed dashboard design.
+
 ## Testing Strategy
 
 - **Unit tests** with Vitest and React Testing Library.

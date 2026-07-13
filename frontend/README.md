@@ -62,6 +62,8 @@ The frontend will be available at `http://localhost:3000`.
 | `npm run test:run` | Run Vitest once |
 | `npm run test:e2e` | Run Playwright tests |
 
-## Foundation
+## Dashboard & Workspace
 
-This is a frontend foundation. Business logic, backend API integration, chat, dashboard, authentication, admin, and report pages are not implemented yet.
+The dashboard and user workspace are implemented in `app/(dashboard)/` and `components/dashboard/`. Authentication is wired through `AuthProvider`, backend API calls live in `services/`, and TanStack Query hooks in `hooks/` manage server state.
+
+See `docs/DASHBOARD.md` for the dashboard design.

@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 import divyadrishti.models  # noqa: F401
-from divyadrishti.api.v1.routers import auth, birth_profiles, conversations, feedback, health, preferences, users
+from divyadrishti.api.v1.routers import auth, birth_profiles, conversations, feedback, health, knowledge, preferences, reports, users
 from divyadrishti.config import get_settings
 from divyadrishti.database import Base, engine
 from divyadrishti.security.middleware import PermissionMiddleware
@@ -50,6 +50,9 @@ app.include_router(birth_profiles.router, prefix="/api/v1")
 app.include_router(conversations.router, prefix="/api/v1")
 app.include_router(preferences.router, prefix="/api/v1")
 app.include_router(feedback.router, prefix="/api/v1")
+app.include_router(reports.router, prefix="/api/v1")
+app.include_router(knowledge.router, prefix="/api/v1")
+app.include_router(knowledge.books_router, prefix="/api/v1")
 
 
 @app.exception_handler(Exception)

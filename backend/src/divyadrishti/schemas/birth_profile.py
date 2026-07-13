@@ -46,6 +46,7 @@ class BirthProfileResponse(BaseModel):
     timezone: str
     accuracy_level: str
     notes: str | None
+    chart_metadata: dict[str, Any] | None
     created_at: datetime
     updated_at: datetime
 

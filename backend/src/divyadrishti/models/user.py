@@ -53,6 +53,7 @@ class User(Base):
     conversations: Mapped[list["Conversation"]] = relationship("Conversation", back_populates="user")
     feedback: Mapped[list["Feedback"]] = relationship("Feedback", back_populates="user")
     refresh_tokens: Mapped[list["RefreshToken"]] = relationship("RefreshToken", back_populates="user")
+    reports: Mapped[list["Report"]] = relationship("Report", back_populates="user")
     sessions: Mapped[list["UserSession"]] = relationship("UserSession", back_populates="user")
 
 

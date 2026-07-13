@@ -1,8 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("Home page", () => {
-  test("shows the frontend foundation placeholder", async ({ page }) => {
+test.describe("Dashboard", () => {
+  test("shows the dashboard shell", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText("Frontend Foundation")).toBeVisible();
+    await expect(page.getByText("Welcome back")).toBeVisible();
+    await expect(page.getByText("Quick Actions")).toBeVisible();
   });
 });

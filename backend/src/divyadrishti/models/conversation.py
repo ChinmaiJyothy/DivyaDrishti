@@ -33,6 +33,7 @@ class Conversation(Base):
     user: Mapped["User"] = relationship("User", back_populates="conversations")
     birth_profile: Mapped["BirthProfile"] = relationship("BirthProfile", back_populates="conversations")
     messages: Mapped[list["Message"]] = relationship("Message", back_populates="conversation")
+    reasoning_results: Mapped[list["ReasoningResult"]] = relationship("ReasoningResult", back_populates="conversation")
 
 
 class Message(Base):

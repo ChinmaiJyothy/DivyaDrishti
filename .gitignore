@@ -26,3 +26,6 @@ dist/
 
 # Large scanned PDFs uploaded for processing
 knowledge-base/books/Book PDFs/
+
+# Generated upload directories
+uploads/

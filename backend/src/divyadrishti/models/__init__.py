@@ -4,6 +4,7 @@ from divyadrishti.models.birth_profile import BirthChart, BirthProfile, Dasha, H
 from divyadrishti.models.conversation import Conversation, ExplainabilityReport, Message, ReasoningResult
 from divyadrishti.models.feedback import Feedback
 from divyadrishti.models.knowledge_version import KnowledgeVersion
+from divyadrishti.models.report import Report
 from divyadrishti.models.uploaded_book import UploadedBook
 from divyadrishti.models.user import RefreshToken, Role, User, UserPreference, UserSession
 
@@ -21,6 +22,7 @@ __all__ = [
     "PlanetPosition",
     "ReasoningResult",
     "RefreshToken",
+    "Report",
     "Role",
     "UploadedBook",
     "User",

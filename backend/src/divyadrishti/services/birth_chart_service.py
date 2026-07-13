@@ -25,3 +25,11 @@ class BirthChartService:
             .order_by(BirthChart.generated_at.desc())
             .first()
         )
+
+    def list_by_profile(self, profile_id: int) -> list[BirthChart]:
+        return (
+            self.db.query(BirthChart)
+            .filter(BirthChart.profile_id == profile_id)
+            .order_by(BirthChart.generated_at.desc())
+            .all()
+        )
