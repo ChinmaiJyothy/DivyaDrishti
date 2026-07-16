@@ -99,6 +99,18 @@ VALID_BOOKS = {
 }
 
 
+TOPIC_KEYWORDS = {
+    "career": {"career", "profession", "job", "work", "business", "occupation"},
+    "marriage": {"marriage", "spouse", "love", "partner", "relationship", "wedding"},
+    "finance": {"money", "finance", "wealth", "income", "property", "riches"},
+    "health": {"health", "disease", "body", "illness", "ailment"},
+    "education": {"education", "learning", "knowledge", "study", "vidya"},
+    "spirituality": {"spiritual", "moksha", "liberation", "renunciation", "sannyasa"},
+    "longevity": {"longevity", "lifespan", "death", "ayurdaya"},
+    "children": {"children", "progeny", "offspring", "putra"},
+}
+
+
 def register_book_source(book_id: str, title: str) -> None:
     """Register a new book source for rule validation."""
     VALID_BOOKS[book_id] = title

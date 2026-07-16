@@ -33,6 +33,12 @@ class Settings(BaseSettings):
     llm_model: str = "gpt-4o-mini"
     llm_base_url: str | None = None
 
+    # Knowledge Corpus / semantic retrieval
+    embedding_provider: str = "sentence_transformers"
+    embedding_model: str | None = None
+    corpus_vector_store_dir: str = ".chroma"
+    corpus_min_rule_confidence: float = 0.35
+
     @field_validator("cors_origins", mode="before")
     @classmethod
     def parse_cors_origins(cls, value: str | list[str]) -> list[str]:

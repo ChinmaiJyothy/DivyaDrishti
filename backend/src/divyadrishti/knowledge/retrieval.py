@@ -134,10 +134,7 @@ class KnowledgeRetrievalEngine:
         return score
 
     def retrieve_for_reasoning(self, chart: dict, question: str) -> list[Rule]:
-        """Retrieve rules relevant to a birth chart and a user question.
-
-        This is a placeholder that will be expanded by the Reasoning Engine.
-        """
+        """Retrieve rules relevant to a birth chart and a user question."""
         results: list[Rule] = []
         keywords = [word.lower() for word in question.split()]
         for rule in self._all_rules():

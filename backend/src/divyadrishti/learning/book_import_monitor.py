@@ -5,7 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from divyadrishti.documents import DocumentProcessingPipeline, InMemoryVectorStore, MockEmbeddingProvider
+from divyadrishti.documents import DocumentProcessingPipeline
 from divyadrishti.knowledge import KnowledgeRepository
 from divyadrishti.knowledge.constants import register_book_source
 from divyadrishti.knowledge.models import Book, Rule
@@ -38,13 +38,10 @@ class BookImportMonitor:
     def __init__(
         self,
         repository: KnowledgeRepository,
-        pipeline: DocumentProcessingPipeline | None = None,
+        pipeline: DocumentProcessingPipeline,
     ) -> None:
         self.repository = repository
-        self.pipeline = pipeline or DocumentProcessingPipeline(
-            embedder=MockEmbeddingProvider(),
-            vector_store=InMemoryVectorStore(),
-        )
+        self.pipeline = pipeline
         self.conflict_analyzer = ConflictAnalyzer(repository)
 
     def process(

@@ -40,7 +40,7 @@ const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttri
 );
 BreadcrumbLink.displayName = "BreadcrumbLink";
 
-const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.SpanHTMLAttributes<HTMLSpanElement>>(
+const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => (
     <span
       ref={ref}

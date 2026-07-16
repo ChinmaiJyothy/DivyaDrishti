@@ -67,9 +67,9 @@ export function ConversationItem({
     }
   };
 
-  const handleAction = (e: React.MouseEvent, callback: (conversation: Conversation) => void) => {
+  const handleAction = (e: React.MouseEvent, callback?: (conversation: Conversation) => void) => {
     e.stopPropagation();
-    callback(conversation);
+    callback?.(conversation);
   };
 
   return (

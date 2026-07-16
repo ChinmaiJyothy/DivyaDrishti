@@ -4,14 +4,14 @@ from pathlib import Path
 from typing import Any
 
 from divyadrishti.documents.chunker import SemanticChunker
-from divyadrishti.documents.embeddings import EmbeddingProvider, MockEmbeddingProvider
+from divyadrishti.documents.embeddings import EmbeddingProvider
 from divyadrishti.documents.extractors import ExtractorFactory
 from divyadrishti.documents.language import IdentityTranslator, LanguageDetector, TranslatorProvider
 from divyadrishti.documents.models import (
     Document,
     DocumentProcessingResult,
 )
-from divyadrishti.documents.store import InMemoryVectorStore, VectorStore
+from divyadrishti.documents.store import VectorStore
 
 
 class DocumentProcessingPipeline:
@@ -19,19 +19,19 @@ class DocumentProcessingPipeline:
 
     def __init__(
         self,
+        embedder: EmbeddingProvider,
+        vector_store: VectorStore,
         extractor_factory: ExtractorFactory | None = None,
         chunker: SemanticChunker | None = None,
         language_detector: LanguageDetector | None = None,
         translator: TranslatorProvider | None = None,
-        embedder: EmbeddingProvider | None = None,
-        vector_store: VectorStore | None = None,
     ) -> None:
         self.extractor_factory = extractor_factory or ExtractorFactory()
         self.chunker = chunker or SemanticChunker()
         self.language_detector = language_detector or LanguageDetector()
         self.translator = translator or IdentityTranslator()
-        self.embedder = embedder or MockEmbeddingProvider()
-        self.vector_store = vector_store or InMemoryVectorStore()
+        self.embedder = embedder
+        self.vector_store = vector_store
 
     def process(
         self,

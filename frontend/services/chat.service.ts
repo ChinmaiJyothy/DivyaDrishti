@@ -17,6 +17,10 @@ export async function streamChatMessage(options: StreamChatOptions): Promise<voi
 
   const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
 
+  if (signal?.aborted) {
+    throw new DOMException("The operation was aborted.", "AbortError");
+  }
+
   const response = await fetch(`${API_BASE_URL}/chat/${conversationId}`, {
     method: "POST",
     headers: {
@@ -76,8 +80,7 @@ export async function streamChatMessage(options: StreamChatOptions): Promise<voi
   } catch (err) {
     if (err instanceof Error) {
       if (err.name === "AbortError") {
-        onDone?.();
-        return;
+        throw err;
       }
       onError?.(err);
       throw err;

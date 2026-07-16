@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Image, Mic, Send, Square } from "lucide-react";
+import { Image as ImageIcon, Mic, Send, Square } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { SuggestedPrompts } from "@/components/chat/suggested-prompts";
@@ -73,7 +73,7 @@ export function ChatInput() {
           aria-label="Upload image"
           title="Image upload coming soon"
         >
-          <Image className="h-5 w-5 text-muted-foreground" />
+          <ImageIcon className="h-5 w-5 text-muted-foreground" />
         </Button>
 
         <Textarea

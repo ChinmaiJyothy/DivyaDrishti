@@ -14,7 +14,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/ui/empty-state";
 import { useDeleteReport, useReports } from "@/hooks/use-reports";
 import { useToast } from "@/hooks/use-toast";
-import type { Report } from "@/types";
 
 function statusColor(status: string) {
   switch (status) {

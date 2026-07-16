@@ -39,7 +39,12 @@ class AIGateway:
         max_retries: int = MAX_RETRIES,
         timeout: float = 60.0,
     ) -> None:
-        self.provider = provider or self._build_provider(provider_name or os.getenv("LLM_PROVIDER", "mock"))
+        provider_name = provider_name or os.getenv("LLM_PROVIDER")
+        if provider is None and provider_name is None:
+            raise ValueError(
+                "LLM provider not configured. Set LLM_PROVIDER environment variable or pass provider explicitly."
+            )
+        self.provider = provider or self._build_provider(provider_name)
         self.fallback_name = fallback_name or os.getenv("LLM_FALLBACK_PROVIDER")
         self.max_retries = max_retries
         self.timeout = timeout

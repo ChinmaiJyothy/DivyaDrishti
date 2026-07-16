@@ -3,7 +3,9 @@ from divyadrishti.documents.chunker import SemanticChunker
 from divyadrishti.documents.embeddings import (
     EmbeddingProvider,
     MockEmbeddingProvider,
+    OpenAIEmbeddingProvider,
     SentenceTransformerEmbeddingProvider,
+    get_embedding_provider,
 )
 from divyadrishti.documents.extractors import (
     MarkdownExtractor,
@@ -34,7 +36,9 @@ __all__ = [
     "SemanticChunker",
     "EmbeddingProvider",
     "MockEmbeddingProvider",
+    "OpenAIEmbeddingProvider",
     "SentenceTransformerEmbeddingProvider",
+    "get_embedding_provider",
     "LanguageDetector",
     "DeepTranslatorProvider",
     "PDFExtractor",

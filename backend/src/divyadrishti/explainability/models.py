@@ -77,6 +77,9 @@ class ReferenceEntry(BaseModel):
     page: str | None = None
     original_language: str | None = None
     translated_text: str = ""
+    corpus: str | None = None
+    original_text: str | None = None
+    retrieval_score: float | None = None
 
 
 class SuggestedReading(BaseModel):

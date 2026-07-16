@@ -1,5 +1,7 @@
 .env
 .venv
+.venv311/
+.venv312/
 env/
 venv/
 
@@ -29,3 +31,11 @@ knowledge-base/books/Book PDFs/
 
 # Generated upload directories
 uploads/
+
+# Local dev tooling and logs
+tools/
+frontend/scripts-logs/
+*.log
+frontend/input_dump.txt
+frontend/components/chat/test-*
+backend/pyswisseph_install.log

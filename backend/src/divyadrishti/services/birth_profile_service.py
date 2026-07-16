@@ -1,5 +1,7 @@
 """Birth profile service."""
 
+from __future__ import annotations
+
 from sqlalchemy.orm import Session
 
 from divyadrishti.models import BirthProfile

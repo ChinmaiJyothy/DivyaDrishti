@@ -49,12 +49,24 @@ export interface BirthChart {
 }
 
 export interface PlanetPosition {
+  name?: string;
+  longitude?: number;
   house: number | null;
   sign: string | null;
+  sign_degree?: number;
+  degree?: number;
   nakshatra: string | null;
+  nakshatra_pada?: number;
+  nakshatra_lord?: string;
   dignity: string | null;
   retrograde: boolean;
   combust: boolean;
+  lord?: string;
+  navamsa_sign?: string | null;
+  navamsa_house?: number | null;
+  navamsa_degree?: number | null;
+  aspects?: string[];
+  conjunctions?: string[];
 }
 
 export interface ChartData {
@@ -364,4 +376,131 @@ export interface SuggestedQuestion {
   id: string;
   label: string;
   question: string;
+}
+
+export interface HouseDetail {
+  house: number;
+  sign: string;
+  lord: string;
+  planets: string[];
+  aspected_by: string[];
+  meaning: string;
+  trinity: string;
+  is_kendra: boolean;
+  is_upachaya: boolean;
+  is_malefic: boolean;
+  is_benefic: boolean;
+}
+
+export interface NakshatraDetail {
+  name: string;
+  pada: number;
+  lord: string;
+  planet: string;
+  longitude: number;
+  characteristics: string;
+  current_influence: string;
+}
+
+export interface DashaPeriod {
+  planet: string;
+  start_date: string;
+  end_date: string;
+  is_current: boolean;
+  major_themes: string[];
+  relevant_planets: string[];
+}
+
+export interface YogaDetail {
+  name: string;
+  strength: string;
+  description: string;
+  conditions: string[];
+  matched_conditions: string[];
+  current_relevance: string;
+  references: string[];
+}
+
+export interface DoshaDetail {
+  name: string;
+  severity: string;
+  conditions: string[];
+  mitigating_factors: string[];
+  confidence: number;
+  references: string[];
+}
+
+export interface AspectDetail {
+  source: string;
+  target: string;
+  aspect_houses: number[];
+  orb: number;
+  type: string;
+}
+
+export interface TransitPosition {
+  name: string;
+  sign: string;
+  house: number;
+  longitude: number;
+  nakshatra: string;
+  retrograde: boolean;
+}
+
+export interface InsightHighlight {
+  type: string;
+  id: string;
+  label: string;
+  reason: string;
+  strength?: string;
+}
+
+export interface StudioInsight {
+  topic: string;
+  highlights: InsightHighlight[];
+  summary: string;
+  recommendations: string[];
+}
+
+export interface BirthChartData {
+  chart_type: string;
+  lagna: string;
+  lagna_degree: number;
+  lagna_nakshatra?: string;
+  moon_sign: string;
+  sun_sign: string;
+  maha_dasha: string;
+  antar_dasha: string;
+  planets: Record<string, PlanetPosition>;
+  houses: Record<string, HouseDetail>;
+  nakshatras: Record<string, NakshatraDetail>;
+  dashas: DashaPeriod[];
+  yogas: YogaDetail[];
+  doshas: DoshaDetail[];
+  aspects: AspectDetail[];
+  transits: TransitPosition[];
+  generated_at: string;
+}
+
+export interface StudioChartDetail {
+  chart_id: string;
+  profile_id: string;
+  chart_type: string;
+  lagna: string;
+  lagna_degree: number;
+  moon_sign: string;
+  sun_sign: string;
+  maha_dasha: string;
+  antar_dasha: string;
+  planets: Record<string, PlanetPosition>;
+  houses: Record<string, HouseDetail>;
+  nakshatras: Record<string, NakshatraDetail>;
+  dashas: DashaPeriod[];
+  yogas: YogaDetail[];
+  doshas: DoshaDetail[];
+  aspects: AspectDetail[];
+  transits: TransitPosition[];
+  visualizations: Record<string, unknown>;
+  insight: StudioInsight | null;
+  generated_at: string;
 }

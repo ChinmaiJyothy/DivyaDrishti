@@ -2,7 +2,7 @@
 
 from divyadrishti.explainability.confidence_explainer import ConfidenceExplainer
 from divyadrishti.explainability.evidence_explainer import EvidenceExplainer
-from divyadrishti.explainability.models import ExplainabilityReport, Limitation
+from divyadrishti.explainability.models import ExplainabilityReport, Limitation, ReferenceEntry
 from divyadrishti.explainability.reasoning_graph_builder import ReasoningGraphBuilder
 from divyadrishti.explainability.reference_collector import ReferenceCollector
 from divyadrishti.explainability.rule_tracer import RuleTracer
@@ -42,6 +42,7 @@ class ExplainabilityEngine:
         references = self.reference_collector.collect(
             result.supporting_evidence + result.conflicting_evidence
         )
+        references.extend(self._corpus_references(result))
         suggested_reading = self.reference_collector.suggest_reading(result.domain, result.matched_rules)
         visualizations = self.visualization_builder.build(chart, result, graph)
 
@@ -68,6 +69,30 @@ class ExplainabilityEngine:
             ],
             visualizations=visualizations,
         )
+
+    def _corpus_references(self, result: ReasoningResult) -> list[ReferenceEntry]:
+        """Convert Knowledge Corpus supporting verses into explainability references.
+
+        Only references that were actually retrieved by the
+        ``CorpusRetrievalEngine`` (attached to ``result.corpus_references``)
+        are included — nothing here is fabricated or inferred.
+        """
+        references: list[ReferenceEntry] = []
+        for ref in result.corpus_references:
+            references.append(
+                ReferenceEntry(
+                    book=ref.get("book", "Unknown"),
+                    chapter=ref.get("chapter"),
+                    verse=ref.get("verse"),
+                    page=str(ref.get("page")) if ref.get("page") is not None else None,
+                    original_language=ref.get("original_language"),
+                    translated_text=ref.get("translated_text") or "",
+                    corpus=ref.get("corpus_name"),
+                    original_text=ref.get("original_text"),
+                    retrieval_score=ref.get("score"),
+                )
+            )
+        return references
 
     def _chart_factors(self, chart: AstrologicalChart) -> dict:
         return {

@@ -1,17 +1,17 @@
 """Birth profile API routes."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from divyadrishti.database import get_db
 from divyadrishti.models import User
+from divyadrishti.schemas.birth_chart import BirthChartResponse
 from divyadrishti.schemas.birth_profile import (
     BirthProfileCreateRequest,
     BirthProfileResponse,
     BirthProfileUpdateRequest,
 )
 from divyadrishti.security import get_current_user
-from divyadrishti.schemas.birth_chart import BirthChartResponse
 from divyadrishti.services.birth_chart_service import BirthChartService
 from divyadrishti.services.birth_profile_service import BirthProfileService
 
@@ -31,12 +31,15 @@ def create_profile(
     body: BirthProfileCreateRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-):
+) -> BirthProfileResponse:
     return _service(db).create(current_user.id, body.model_dump())
 
 
 @router.get("", response_model=list[BirthProfileResponse])
-def list_profiles(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def list_profiles(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> list[BirthProfileResponse]:
     return _service(db).list(current_user.id)
 
 
@@ -45,7 +48,7 @@ def get_profile(
     profile_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-):
+) -> BirthProfileResponse:
     profile = _service(db).get(profile_id, current_user.id)
     if not profile:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
@@ -58,7 +61,7 @@ def update_profile(
     body: BirthProfileUpdateRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-):
+) -> BirthProfileResponse:
     service = _service(db)
     profile = service.get(profile_id, current_user.id)
     if not profile:
@@ -71,7 +74,7 @@ def delete_profile(
     profile_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-):
+) -> dict[str, str]:
     service = _service(db)
     profile = service.get(profile_id, current_user.id)
     if not profile:
@@ -85,7 +88,7 @@ def list_charts(
     profile_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-):
+) -> list[BirthChartResponse]:
     service = _service(db)
     profile = service.get(profile_id, current_user.id)
     if not profile:
@@ -96,14 +99,46 @@ def list_charts(
 @router.get("/{profile_id}/charts/latest", response_model=BirthChartResponse)
 def get_latest_chart(
     profile_id: int,
+    chart_type: str | None = Query(None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-):
+) -> BirthChartResponse:
     service = _service(db)
     profile = service.get(profile_id, current_user.id)
     if not profile:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
-    chart = _chart_service(db).get_latest_chart(profile_id)
+    chart = _chart_service(db).get_latest_chart(profile_id, chart_type)
     if not chart:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No chart found")
     return chart
+
+
+@router.get("/{profile_id}/charts/{chart_type}", response_model=BirthChartResponse)
+def get_chart_by_type(
+    profile_id: int,
+    chart_type: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> BirthChartResponse:
+    service = _service(db)
+    profile = service.get(profile_id, current_user.id)
+    if not profile:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
+    chart = _chart_service(db).get_latest_chart(profile_id, chart_type)
+    if not chart:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No chart found")
+    return chart
+
+
+@router.post("/{profile_id}/charts", response_model=BirthChartResponse, status_code=status.HTTP_201_CREATED)
+def generate_chart(
+    profile_id: int,
+    chart_type: str = Query("rashi"),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> BirthChartResponse:
+    service = _service(db)
+    profile = service.get(profile_id, current_user.id)
+    if not profile:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
+    return _chart_service(db).generate_chart(profile_id, current_user.id, chart_type)

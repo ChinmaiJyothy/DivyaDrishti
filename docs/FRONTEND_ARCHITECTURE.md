@@ -131,6 +131,22 @@ See `DASHBOARD.md` for the detailed dashboard design.
 
 See `CHAT_ARCHITECTURE.md` for the detailed chat design.
 
+## Birth Chart Studio
+
+- Studio entry point: `app/(dashboard)/studio/page.tsx`.
+- Components live in `components/studio/` and include:
+  - `studio-page.tsx` — page orchestration, chart type tabs, search, and selected-detail panels.
+  - `birth-chart-svg.tsx` — interactive, responsive SVG chart (South-Indian-style 4x3 grid).
+  - `planet-panel.tsx`, `house-panel.tsx`, `nakshatra-panel.tsx` — detail panels for selected elements.
+  - `dasha-panel.tsx`, `yoga-panel.tsx`, `dosha-panel.tsx` — list panels for Vimshottari dasha, yogas, and doshas.
+  - `insight-panel.tsx` — question-driven, context-aware highlights.
+- Data: `hooks/use-birth-profiles.ts` exposes `useGenerateChart`, `useStudio`, `useAnalyzeChart`, and `useSearchChart`.
+- Services: `services/birth-profile.service.ts` wraps the chart, studio, analyze, and search endpoints.
+- Backend: `BirthChartGenerator` (`pyswisseph`) computes D1/D9 charts; `StudioService` integrates reasoning, explainability, and knowledge engines.
+- Navigation: the `Studio` link is added to `Sidebar` and `MobileNav`.
+
+See `BIRTH_CHART_STUDIO.md` for the detailed studio design.
+
 ## Testing Strategy
 
 - **Unit tests** with Vitest and React Testing Library.

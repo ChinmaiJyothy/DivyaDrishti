@@ -21,14 +21,19 @@ class ConflictAnalyzer:
                     duplicates.append((a.rule_id, b.rule_id, "similar factors"))
         return duplicates
 
-    def find_conflicts(self) -> list[tuple[str, str, str]]:
-        """Return pairs of conflicting rule IDs and reasons."""
+    def find_conflicts(self, rule: Rule | None = None) -> list[tuple[str, str, str]]:
+        """Return pairs of conflicting rule IDs and reasons.
+        
+        If rule is provided, only return conflicts involving that rule.
+        """
         conflicts = []
         rules = self.repository.list_rules(enabled_only=False)
         for i, a in enumerate(rules):
             for b in rules[i + 1 :]:
                 if self._same_scope(a, b) and not sentiments_match(a.interpretation, b.interpretation):
                     conflicts.append((a.rule_id, b.rule_id, "opposite interpretation"))
+        if rule:
+            conflicts = [(r1, r2, reason) for r1, r2, reason in conflicts if r1 == rule.rule_id or r2 == rule.rule_id]
         return conflicts
 
     def _similar(self, a: Rule, b: Rule) -> bool:

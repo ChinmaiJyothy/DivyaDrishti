@@ -16,7 +16,6 @@ import {
   useDeleteConversation,
 } from "@/hooks/use-conversations";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 
 export function ChatHeader() {
   const router = useRouter();

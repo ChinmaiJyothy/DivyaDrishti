@@ -42,7 +42,7 @@ export function ExplainabilityPanel({
 
   const directAnswer = aiResponse?.direct_answer || message?.content || "No direct answer available.";
   const interpretation = aiResponse?.interpretation || reasoningResult?.reasoning_summary || "";
-  const why = aiResponse?.why_this_conclusion || reasoningResult?.reasoning_summary || "";
+  const why = reasoningResult?.reasoning_summary || "";
   const supporting = report.supporting_evidence || [];
   const conflicting = report.conflicting_evidence || [];
   const confidence = report.confidence_score || null;

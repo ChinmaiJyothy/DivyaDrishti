@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-import { Button } from "@/components/ui/button";
 import { ErrorState } from "@/components/ui/error-state";
 import { PageContainer } from "@/components/layout/page-container";
 

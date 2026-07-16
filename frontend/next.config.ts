@@ -2,8 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  typedRoutes: false,
   experimental: {
-    typedRoutes: true,
+    serverSourceMaps: true,
   },
   images: {
     remotePatterns: [

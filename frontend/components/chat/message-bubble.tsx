@@ -274,13 +274,14 @@ export function MessageBubble({ message, className, ...props }: MessageBubblePro
       {message.role === "user" ? (
         <p className="whitespace-pre-wrap text-sm">{message.content}</p>
       ) : (
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={markdownComponents}
-          className="text-sm leading-relaxed"
-        >
-          {message.content}
-        </ReactMarkdown>
+        <div className="text-sm leading-relaxed">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={markdownComponents}
+          >
+            {message.content}
+          </ReactMarkdown>
+        </div>
       )}
     </Card>
   );

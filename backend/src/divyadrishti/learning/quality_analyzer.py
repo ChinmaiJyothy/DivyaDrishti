@@ -1,6 +1,7 @@
 """Rule Quality Analyzer for scoring rule quality."""
 
 from divyadrishti.knowledge import KnowledgeRepository
+from divyadrishti.learning.conflict_analyzer import ConflictAnalyzer
 from divyadrishti.learning.feedback_manager import FeedbackManager
 from divyadrishti.learning.models import QualityMetrics
 
@@ -24,7 +25,7 @@ class QualityAnalyzer:
 
         usage = rule.usage_count
         retrieval = rule.usage_count
-        conflicts = len(rule.interpretation) % 5  # Placeholder heuristic
+        conflicts = self._count_conflicts(rule)
 
         score = self._compute_score(
             usage,
@@ -48,6 +49,11 @@ class QualityAnalyzer:
     def analyze_all(self) -> list[QualityMetrics]:
         """Return quality metrics for all rules."""
         return [self.analyze(rule.rule_id) for rule in self.repository.list_rules(enabled_only=False)]
+
+    def _count_conflicts(self, rule) -> int:
+        """Return number of conflicts detected between this rule and the knowledge base."""
+        analyzer = ConflictAnalyzer(self.repository)
+        return len(analyzer.find_conflicts(rule))
 
     def _compute_score(
         self,
