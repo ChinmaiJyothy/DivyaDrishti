@@ -98,3 +98,52 @@ class KnowledgeGraphBuilder:
                 label=value,
             )
             self.graph_repository.add_edge(corpus_id, rule_node, entity_node, "mentions")
+
+    def build(
+        self,
+        corpus_id: int,
+        book: UploadedBook,
+        rules: list[CandidateRule],
+    ) -> list[KnowledgeGraphNode]:
+        """Populate the graph for a book and all of its candidate rules."""
+        return [self.add_rule(corpus_id, book, rule) for rule in rules]
+
+    def traverse(
+        self,
+        node_type: str,
+        ref_id: str,
+        depth: int = 2,
+        corpus_id: int | None = None,
+    ) -> dict:
+        """Traverse the graph from a starting node and return reachable nodes/edges."""
+        return self.graph_repository.traverse(node_type, ref_id, depth, corpus_id)
+
+    def find_rules_for_entity(
+        self,
+        corpus_id: int,
+        node_type: str,
+        ref_id: str,
+        depth: int = 2,
+    ) -> list[dict]:
+        """Return rule nodes that are connected to the given entity."""
+        subgraph = self.graph_repository.traverse(
+            node_type, ref_id, depth=depth, corpus_id=corpus_id
+        )
+        rule_ids = {n["id"] for n in subgraph["nodes"] if n["node_type"] == "rule"}
+        return [n for n in subgraph["nodes"] if n["id"] in rule_ids]
+
+    def find_related_entities(
+        self,
+        corpus_id: int,
+        rule_ref_id: str,
+        depth: int = 1,
+    ) -> list[dict]:
+        """Return astrological entity nodes connected to a given rule."""
+        subgraph = self.graph_repository.traverse(
+            "rule", rule_ref_id, depth=depth, corpus_id=corpus_id
+        )
+        return [
+            n
+            for n in subgraph["nodes"]
+            if n["node_type"] not in {"book", "chapter", "verse", "rule"}
+        ]
