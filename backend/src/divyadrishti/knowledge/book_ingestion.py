@@ -73,6 +73,7 @@ class BookIngestionPipeline:
 
         title, author = self._resolve_title_author(path, metadata)
 
+        ocr_used = False
         try:
             extractor, ocr_used = ExtractorFactory.get_extractor_with_ocr_detection(
                 path, language_hint=metadata.language_hint
@@ -81,7 +82,6 @@ class BookIngestionPipeline:
         except Exception as exc:
             errors.append(f"Extraction failed: {exc}")
             pages = []
-            ocr_used = False
 
         raw_text = "\n\n".join(text for _, text in pages)
         language = self._detect_language(raw_text, metadata.language_hint, warnings)
