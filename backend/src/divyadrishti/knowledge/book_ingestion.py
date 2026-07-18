@@ -40,6 +40,7 @@ class BookIngestionReport(BaseModel):
     ocr_used: bool
     page_count: int
     stored_pages: int
+    candidate_rule_count: int = 0
     errors: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
 

@@ -10,6 +10,8 @@ from fastapi import UploadFile
 from sqlalchemy.orm import Session
 
 from divyadrishti.config import get_settings
+from divyadrishti.documents.chunker import SemanticChunker
+from divyadrishti.documents.models import Document
 from divyadrishti.documents.store import ChromaVectorStore, VectorStore
 from divyadrishti.knowledge.book_ingestion import BookIngestionPipeline, BookIngestionReport
 from divyadrishti.knowledge.corpus_pipeline import BookMetadata
@@ -17,7 +19,8 @@ from divyadrishti.knowledge.graph_builder import KnowledgeGraphBuilder
 from divyadrishti.knowledge.hybrid_retrieval import CorpusRetrievalEngine, candidate_rule_to_domain_rule
 from divyadrishti.knowledge.repository import KnowledgeRepository
 from divyadrishti.knowledge.retrieval import KnowledgeRetrievalEngine
-from divyadrishti.models import CandidateRule, CandidateRuleStatus, Corpus, RuleReviewAudit, UploadedBook
+from divyadrishti.knowledge.rule_extraction import CandidateRuleDraft, RuleExtractor
+from divyadrishti.models import CandidateRule, CandidateRuleStatus, Corpus, ExtractedBookPage, RuleReviewAudit, UploadedBook
 from divyadrishti.repositories import (
     CandidateRuleRepository,
     CorpusRepository,
@@ -47,6 +50,8 @@ class CorpusService:
         self.graph_repo = KnowledgeGraphRepository(db)
         self.extracted_page_repo = ExtractedBookPageRepository(db)
         self.graph_builder = KnowledgeGraphBuilder(self.graph_repo)
+        self.chunker = SemanticChunker()
+        self.rule_extractor = RuleExtractor()
         # The file-based rule repository backing the Reasoning Engine's
         # keyword fallback. Approving a candidate rule persists it here too,
         # so legacy consumers and the keyword-only path both benefit.
@@ -105,8 +110,8 @@ class CorpusService:
 
         Extraction -> OCR fallback (if scanned) -> language detection ->
         hierarchy extraction (title, author, chapter, section, verse, page)
-        -> database storage. Embeddings and candidate-rule extraction are
-        intentionally left out of this step.
+        -> database storage -> semantic chunking -> automatic rule
+        extraction -> candidate rules (pending administrator approval).
         """
         book = self.book_repo.get_by_id(book_id)
         if not book:
@@ -131,6 +136,9 @@ class CorpusService:
             )
             report = pipeline.ingest(book.file_path, book_id=book.id, metadata=metadata)
 
+            candidate_rules = self._extract_and_store_candidate_rules(book)
+            report = report.model_copy(update={"candidate_rule_count": len(candidate_rules)})
+
             book.status = "completed"
             book.language = report.language_detected
             book.ingestion_report_json = report.model_dump()
@@ -142,6 +150,64 @@ class CorpusService:
             book.ingestion_report_json = {"error": str(exc)}
             self.db.commit()
             raise CorpusIngestionError(f"Ingestion failed for book {book_id}: {exc}") from exc
+
+    def _extract_and_store_candidate_rules(self, book: UploadedBook) -> list[CandidateRule]:
+        """Chunk the extracted pages into semantic chunks and persist candidate rules."""
+        pages = self.extracted_page_repo.list_by_book(book.id)
+        if not pages:
+            return []
+
+        raw_text = "\n\n".join(page.text for page in pages if page.text)
+        document = Document(
+            source_path=book.file_path,
+            file_type=Path(book.file_path).suffix.lower(),
+            language=book.language or "",
+            title=book.title or book.file_name,
+            author=book.author or "",
+            raw_text=raw_text,
+        )
+
+        chunks = self.chunker.chunk(
+            document,
+            book_id=str(book.id),
+            book_title=book.title or book.file_name,
+            author=book.author or "",
+        )
+
+        drafts = self.rule_extractor.extract_many(chunks)
+        if not drafts:
+            return []
+
+        candidates = [
+            self._candidate_rule_from_draft(draft, book)
+            for draft in drafts
+        ]
+        return self.candidate_repo.bulk_create(candidates)
+
+    def _candidate_rule_from_draft(
+        self, draft: CandidateRuleDraft, book: UploadedBook
+    ) -> CandidateRule:
+        """Convert a CandidateRuleDraft to a pending CandidateRule row."""
+        return CandidateRule(
+            candidate_rule_id=draft.candidate_rule_id,
+            corpus_id=book.corpus_id,
+            book_id=book.id,
+            source_book_title=draft.source_book_title,
+            language=draft.language,
+            chapter=draft.chapter,
+            verse=draft.verse,
+            page=draft.page,
+            original_text=draft.original_text,
+            translated_text=draft.translated_text,
+            topic=draft.topic,
+            subtopic=draft.subtopic,
+            astrological_factors_json=draft.astrological_factors.model_dump(),
+            candidate_conditions_json=draft.candidate_conditions,
+            candidate_interpretation=draft.candidate_interpretation,
+            confidence=draft.confidence,
+            status=CandidateRuleStatus.PENDING.value,
+            chunk_id=draft.chunk_id,
+        )
 
     def _vector_store_for_corpus(self, corpus_id: int) -> VectorStore:
         return ChromaVectorStore(
