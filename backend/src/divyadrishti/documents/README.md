@@ -44,7 +44,7 @@ For every uploaded document:
 - `extractors.py` — `PDFExtractor`, `ScannedPDFExtractor`, `MarkdownExtractor`, `TextExtractor`
 - `language.py` — `LanguageDetector`, `TranslatorProvider`, `DeepTranslatorProvider`
 - `chunker.py` — `SemanticChunker`
-- `embeddings.py` — `EmbeddingProvider`, `MockEmbeddingProvider`, `SentenceTransformerEmbeddingProvider`
+- `embeddings.py` — `EmbeddingProvider`, `SentenceTransformerEmbeddingProvider`, `OpenAIEmbeddingProvider`, `get_embedding_provider`, `get_default_embedding_provider`
 - `store.py` — `VectorStore`, `InMemoryVectorStore`, `ChromaVectorStore`
 - `retrieval.py` — `DocumentRetrievalEngine` (topic, house, planet, yoga, dosha, semantic, hybrid, citation)
 - `pipeline.py` — `DocumentProcessingPipeline` orchestrator

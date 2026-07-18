@@ -1,10 +1,12 @@
-from divyadrishti.documents import DocumentChunk, InMemoryVectorStore, MockEmbeddingProvider
+from divyadrishti.documents import DocumentChunk, InMemoryVectorStore
 from divyadrishti.documents.models import ChunkMetadata
+
+from .fake_provider import FakeEmbeddingProvider
 
 
 def test_in_memory_store_query():
     store = InMemoryVectorStore()
-    provider = MockEmbeddingProvider()
+    provider = FakeEmbeddingProvider()
 
     chunks = [
         DocumentChunk(
@@ -27,7 +29,7 @@ def test_in_memory_store_query():
 
 def test_in_memory_store_filter():
     store = InMemoryVectorStore()
-    provider = MockEmbeddingProvider()
+    provider = FakeEmbeddingProvider()
 
     chunk = DocumentChunk(
         text="Jupiter in 7th",

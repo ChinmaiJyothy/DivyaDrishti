@@ -3,16 +3,17 @@ from pathlib import Path
 
 from divyadrishti.documents import (
     DocumentProcessingPipeline,
-    InMemoryVectorStore,
-    MockEmbeddingProvider,
     DocumentRetrievalEngine,
+    InMemoryVectorStore,
 )
+
+from .fake_provider import FakeEmbeddingProvider
 
 
 @pytest.fixture
 def pipeline():
     return DocumentProcessingPipeline(
-        embedder=MockEmbeddingProvider(),
+        embedder=FakeEmbeddingProvider(),
         vector_store=InMemoryVectorStore(),
     )
 
@@ -25,6 +26,8 @@ def test_process_text(tmp_path, pipeline):
     assert result.chunk_count >= 1
     assert result.stored is True
     assert result.language == "en"
+    assert result.document.chunks[0].metadata.embedding_provider == "fake"
+    assert result.document.chunks[0].metadata.embedding_model == "fake-v1"
 
 
 def test_process_directory(tmp_path, pipeline):

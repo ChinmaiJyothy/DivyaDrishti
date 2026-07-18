@@ -1,9 +1,10 @@
 import pytest
 from pathlib import Path
 
-from divyadrishti.documents import DocumentProcessingPipeline, InMemoryVectorStore, MockEmbeddingProvider
+from divyadrishti.documents import DocumentProcessingPipeline, InMemoryVectorStore
 from divyadrishti.knowledge import KnowledgeRepository
 from divyadrishti.learning import BookImportMonitor
+from tests.unit.documents.fake_provider import FakeEmbeddingProvider
 
 
 @pytest.fixture
@@ -14,7 +15,7 @@ def repository(tmp_path):
 @pytest.fixture
 def pipeline():
     return DocumentProcessingPipeline(
-        embedder=MockEmbeddingProvider(),
+        embedder=FakeEmbeddingProvider(),
         vector_store=InMemoryVectorStore(),
     )
 

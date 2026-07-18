@@ -79,6 +79,8 @@ class DocumentProcessingPipeline:
 
             embedding_text = chunk.metadata.translated_text or chunk.text
             chunk.embedding = self.embedder.embed(embedding_text)
+            chunk.metadata.embedding_provider = self.embedder.provider_name
+            chunk.metadata.embedding_model = self.embedder.model_name
             chunk.citation = chunk.build_citation()
 
         document.chunks = chunks

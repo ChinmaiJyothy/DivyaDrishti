@@ -56,8 +56,8 @@ DivyaDrishti is an AI-powered Vedic astrology expert system. The core applicatio
 ### Knowledge Corpus verification
 
 - `docs/PRODUCTION_VERIFICATION.md` phase 3 passed historically.
-- `CorpusIngestionPipeline` explicitly rejects `MockEmbeddingProvider` in production code.
-- Unit tests use `InMemoryVectorStore` and `MockEmbeddingProvider`; these are test-only and should not be used in production.
+- `CorpusIngestionPipeline` rejects test-only embedding providers in production code.
+- Unit tests use `InMemoryVectorStore` and a test-only fake provider; these should not be used in production.
 
 ### Authentication verification
 
@@ -211,8 +211,8 @@ Items transcribed from `docs/DECISIONS.md` and the codebase scan, classified by 
 
 ### Embeddings
 
-- `MockEmbeddingProvider` is reserved for unit tests and rejected in `CorpusIngestionPipeline`.
-- `SentenceTransformerEmbeddingProvider` or `OpenAIEmbeddingProvider` should be used in production.
+- A test-only fake provider is used in unit tests; production should use `SentenceTransformerEmbeddingProvider` or `OpenAIEmbeddingProvider`.
+- `CorpusIngestionPipeline` rejects test-only embedding providers.
 
 ### Streaming
 

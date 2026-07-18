@@ -26,6 +26,8 @@ class ChunkMetadata(BaseModel):
     translated_text: str | None = None
     source_file: str = ""
     chunk_index: int = 0
+    embedding_provider: str = ""
+    embedding_model: str = ""
 
     def build_citation(self) -> str:
         """Generate a human-readable citation for this chunk."""
