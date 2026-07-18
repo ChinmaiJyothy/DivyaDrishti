@@ -22,3 +22,28 @@ def test_context_builder_truncates():
     reasoning = {"matched_rules": ["x" * 1000]}
     context = builder.build("question", reasoning)
     assert len(context) <= 200
+
+
+def test_context_builder_includes_corpus_references():
+    builder = ContextBuilder()
+    reasoning = {
+        "domain": "marriage",
+        "matched_rules": [],
+        "supporting_evidence": [],
+        "conflicting_evidence": [],
+        "overall_confidence": 0.0,
+        "corpus_references": [
+            {
+                "book": "BPHS",
+                "chapter": "7",
+                "verse": "5",
+                "page": 12,
+                "original_text": "Jupiter in the 7th house gives a happy marriage.",
+            }
+        ],
+    }
+    context = builder.build("Will I have a happy marriage?", reasoning)
+    assert "Relevant Book Chunks" in context
+    assert "Classical References" in context
+    assert "Jupiter in the 7th house gives a happy marriage" in context
+    assert "BPHS" in context

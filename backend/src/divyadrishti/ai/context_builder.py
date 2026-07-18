@@ -35,6 +35,9 @@ class ContextBuilder:
                 "Conflicting Evidence", self._render_list(reasoning.get("conflicting_evidence", []))
             ),
             self._section("Confidence Score", str(reasoning.get("overall_confidence", "N/A"))),
+            self._section("Reasoning Trace", self._render_reasoning(reasoning.get("reasoning_trace", reasoning))),
+            self._section("Relevant Book Chunks", self._render_corpus_references(reasoning.get("corpus_references", []))),
+            self._section("Classical References", self._render_list(reasoning.get("corpus_references", []))),
             self._section("Conversation History", self._render_history(memory.get_history())),
             self._section("User Preferences", self._render_preferences(memory.preferences)),
             self._section(
@@ -61,6 +64,24 @@ class ContextBuilder:
         if isinstance(item, dict):
             return item.get("rule_id", item.get("source", str(item)))
         return str(item)
+
+    def _render_corpus_references(self, references: list[dict[str, Any]]) -> str:
+        if not references:
+            return "None"
+        lines = []
+        for ref in references:
+            book = ref.get("book", "Unknown Book")
+            chapter = ref.get("chapter", "")
+            verse = ref.get("verse", "")
+            page = ref.get("page", "")
+            text = ref.get("original_text") or ref.get("translated_text") or ""
+            location = " ".join(str(v) for v in [chapter, verse, page] if v).strip()
+            if location:
+                header = f"{book} {location}"
+            else:
+                header = book
+            lines.append(f"- {header}: {text}")
+        return "\n".join(lines)
 
     def _render_history(self, history: list[dict[str, str]]) -> str:
         if not history:

@@ -121,7 +121,9 @@ class AIConversationEngine:
             "- Avoid medical, legal, or financial advice.\n"
             "- Avoid fear-based or deterministic language.\n"
             "- Present astrology as interpretation, not certainty.\n"
-            "- Cite classical sources only if they appear in the reasoning."
+            "- Cite classical sources only if they appear in the provided reasoning and references.\n"
+            "- Do not invent citations, authors, books, or verses.\n"
+            "- If the evidence is insufficient to answer confidently, say so clearly."
         )
         return system + safety
 

@@ -216,6 +216,10 @@ class ChatService:
             "conflicting_evidence": [r.model_dump() for r in reasoning_result.conflicting_evidence],
             "overall_confidence": reasoning_result.overall_confidence,
             "reasoning_summary": reasoning_result.reasoning_summary,
+            "reasoning_trace": reasoning_result.model_dump(),
+            "corpus_references": reasoning_result.corpus_references,
+            "corpus_related_chapters": reasoning_result.corpus_related_chapters,
+            "corpus_retrieval_method": reasoning_result.corpus_retrieval_method,
             "references": list(dict.fromkeys(references)),
             "suggested_follow_up_topics": reasoning_result.suggested_follow_up_topics,
         }

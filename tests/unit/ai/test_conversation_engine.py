@@ -26,3 +26,10 @@ def test_conversation_engine_stream():
     chunks = list(engine.stream("Will I marry?", {"domain": "marriage"}))
     assert chunks
     assert "Jupiter" in "".join(chunks)
+
+
+def test_system_prompt_forbids_invented_citations_and_insufficient_evidence():
+    engine = AIConversationEngine(gateway=AIGateway(provider=MockProvider()))
+    system_prompt = engine._build_system_prompt()
+    assert "Do not invent citations" in system_prompt
+    assert "insufficient" in system_prompt.lower()
