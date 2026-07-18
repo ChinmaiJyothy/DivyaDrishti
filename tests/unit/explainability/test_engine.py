@@ -131,3 +131,44 @@ def test_visualization_data():
     assert vis.planet_influence_graph
     assert vis.house_influence_graph
     assert vis.knowledge_source_graph
+
+
+def test_explainability_includes_corpus_reference_fields():
+    engine = ExplainabilityEngine()
+    result = sample_reasoning_result()
+    result.corpus_references = [
+        {
+            "corpus_id": 1,
+            "corpus_name": "Test Corpus",
+            "book": "BPHS",
+            "chapter": "7",
+            "verse": "5",
+            "page": 12,
+            "original_language": "sa",
+            "original_text": "सप्तमे गुरौ सुखं दाम्पत्यम्।",
+            "translated_text": "Jupiter in the 7th house gives marital happiness.",
+            "score": 0.91,
+        }
+    ]
+    report = engine.explain("Will I have a happy marriage?", sample_chart(), result)
+
+    assert len(report.classical_references) == 1
+    ref = report.classical_references[0]
+    assert ref.book == "BPHS"
+    assert ref.chapter == "7"
+    assert ref.verse == "5"
+    assert ref.page == "12"
+    assert ref.original_language == "sa"
+    assert ref.original_text
+    assert ref.translated_text
+    assert ref.retrieval_score == 0.91
+
+
+def test_explainability_does_not_fabricate_references():
+    engine = ExplainabilityEngine()
+    result = sample_reasoning_result()
+    result.corpus_references = []
+    report = engine.explain("Will I have a happy marriage?", sample_chart(), result)
+
+    assert report.classical_references == []
+    assert any("never fabricated" in note.lower() for note in report.important_notes)

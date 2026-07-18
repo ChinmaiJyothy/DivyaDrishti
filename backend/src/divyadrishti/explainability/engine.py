@@ -39,10 +39,7 @@ class ExplainabilityEngine:
             result.supporting_evidence, result.conflicting_evidence
         )
         confidence = self.confidence_explainer.explain(result)
-        references = self.reference_collector.collect(
-            result.supporting_evidence + result.conflicting_evidence
-        )
-        references.extend(self._corpus_references(result))
+        references = self._corpus_references(result)
         suggested_reading = self.reference_collector.suggest_reading(result.domain, result.matched_rules)
         visualizations = self.visualization_builder.build(chart, result, graph)
 
@@ -64,7 +61,8 @@ class ExplainabilityEngine:
             suggested_reading=suggested_reading,
             important_notes=[
                 "This explanation is generated from the structured reasoning engine.",
-                "Classical references are derived from the knowledge base and not fabricated.",
+                "Classical references are cited only from retrieved Knowledge Corpus data.",
+                "References are never fabricated; if none were retrieved, no references are shown.",
                 "Confidence reflects rule quality and evidence agreement, not certainty.",
             ],
             visualizations=visualizations,
