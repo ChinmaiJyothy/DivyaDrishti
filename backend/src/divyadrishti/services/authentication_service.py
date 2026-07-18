@@ -77,7 +77,14 @@ class AuthenticationService:
 
         token_hash = sha256(refresh_token.encode()).hexdigest()
         stored = self.repo.get_refresh_token(token_hash)
-        if not stored or stored.revoked_at or stored.expires_at < datetime.now(timezone.utc):
+        if not stored:
+            raise ValueError("Refresh token not found")
+        if stored.revoked_at:
+            raise ValueError("Refresh token revoked or expired")
+        expires_at = stored.expires_at
+        if expires_at.tzinfo is None:
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+        if expires_at < datetime.now(timezone.utc):
             raise ValueError("Refresh token revoked or expired")
 
         user_id = int(payload["sub"])

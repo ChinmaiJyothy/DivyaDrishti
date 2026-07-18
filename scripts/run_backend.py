@@ -10,6 +10,9 @@ env["CORS_ORIGINS"] = '["http://localhost:3000", "http://127.0.0.1:3000"]'
 env["SECRET_KEY"] = env.get("SECRET_KEY") or "change-this-to-a-32-byte-random-secret"
 env["APP_ENV"] = "development"
 env["LOG_LEVEL"] = "INFO"
+env["LLM_PROVIDER"] = "mock"
+env["DATABASE_URL"] = f"sqlite:///{os.path.join(backend, 'divyadrishti.db')}"
+env["CORPUS_VECTOR_STORE_DIR"] = os.path.join(backend, ".chroma")
 
 log_path = os.path.join(backend, "scripts-logs", "backend.log")
 os.makedirs(os.path.dirname(log_path), exist_ok=True)

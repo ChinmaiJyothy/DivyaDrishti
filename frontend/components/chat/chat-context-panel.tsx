@@ -14,7 +14,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useChatContext } from "@/components/chat/chat-context";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 function ActiveMessageDetails() {
   const { activeMessage } = useChatContext();
@@ -147,6 +149,12 @@ function PanelContent({ className }: { className?: string }) {
 
 export function ChatContextPanel() {
   const { isContextPanelOpen, setContextPanelOpen } = useChatContext();
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -159,14 +167,14 @@ export function ChatContextPanel() {
         {isContextPanelOpen && <PanelContent />}
       </aside>
 
-      <div className="lg:hidden">
+      {mounted && !isDesktop && (
         <Dialog open={isContextPanelOpen} onOpenChange={setContextPanelOpen}>
           <DialogContent className="fixed inset-y-0 right-0 h-full w-80 max-w-none translate-x-0 translate-y-0 rounded-none border-r-0 border-l p-0 left-auto sm:rounded-none">
             <DialogTitle className="sr-only">Context Panel</DialogTitle>
             <PanelContent />
           </DialogContent>
         </Dialog>
-      </div>
+      )}
     </>
   );
 }

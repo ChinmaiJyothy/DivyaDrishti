@@ -69,30 +69,34 @@ export function useChat(conversationId: string | undefined) {
       if (event.event === "delta") {
         if (!streamingAssistantRef.current) {
           streamingAssistantRef.current = createAssistantMessage("streaming", "");
-          setMessages((prev) => [...prev, streamingAssistantRef.current!]);
+          const streaming = streamingAssistantRef.current;
+          setMessages((prev) => [...prev, streaming]);
         }
-        streamingAssistantRef.current.content += event.content;
+        const streaming = streamingAssistantRef.current;
+        if (!streaming) return;
+        streaming.content += event.content;
         setMessages((prev) => {
-          const index = prev.findIndex((m) => m.id === streamingAssistantRef.current!.id);
+          const index = prev.findIndex((m) => m.id === streaming.id);
           if (index === -1) return prev;
           const next = [...prev];
-          next[index] = { ...streamingAssistantRef.current! };
+          next[index] = { ...streaming };
           return next;
         });
         return;
       }
 
       if (event.event === "metadata") {
+        const streaming = streamingAssistantRef.current;
         const assistantMessage: Message = createAssistantMessage(
           buildMessageId(event.message_id),
-          streamingAssistantRef.current?.content || event.ai_response.direct_answer
+          streaming?.content || event.ai_response.direct_answer
         );
         assistantMessage.ai_response_json = event.ai_response;
         assistantMessage.reasoning_result = event.reasoning_result;
         assistantMessage.explainability_report = event.explainability_report;
 
         setMessages((prev) => {
-          const index = prev.findIndex((m) => m.id === streamingAssistantRef.current?.id);
+          const index = prev.findIndex((m) => m.id === streaming?.id);
           if (index === -1) {
             return [...prev, assistantMessage];
           }
