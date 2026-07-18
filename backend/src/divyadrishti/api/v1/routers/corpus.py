@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException, Request, UploadFile
 from sqlalchemy.orm import Session
 
 from divyadrishti.database import get_db
+from divyadrishti.knowledge.hybrid_retrieval import CorpusRetrievalResult
 from divyadrishti.knowledge.repository import KnowledgeRepository
 from divyadrishti.models import User
 from divyadrishti.schemas.corpus import (
@@ -16,6 +17,7 @@ from divyadrishti.schemas.corpus import (
     CorpusBookResponse,
     CorpusCreateRequest,
     CorpusResponse,
+    CorpusRetrieveRequest,
     GraphTraversalResponse,
     RuleReviewAuditResponse,
 )
@@ -23,6 +25,22 @@ from divyadrishti.security import get_current_user, require_admin
 from divyadrishti.services.corpus_service import CorpusIngestionError, CorpusService
 
 router = APIRouter(prefix="/corpus", tags=["knowledge-corpus"])
+
+
+@router.post("/retrieve", response_model=CorpusRetrievalResult)
+def retrieve(
+    request: Request,
+    body: CorpusRetrieveRequest,
+    _admin: User = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Single entry point for hybrid corpus retrieval."""
+    return _service(request, db).retrieve(
+        question=body.question,
+        entities=body.entities,
+        corpus_ids=body.corpus_ids,
+        n_results=body.n_results,
+    )
 
 
 def _service(request: Request, db: Session) -> CorpusService:

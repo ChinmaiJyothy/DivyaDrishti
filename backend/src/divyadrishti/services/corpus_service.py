@@ -420,6 +420,20 @@ class CorpusService:
     ) -> dict[str, Any]:
         return self.graph_repo.traverse(node_type, ref_id, depth=depth, corpus_id=corpus_id)
 
+    def retrieve(
+        self,
+        question: str,
+        entities: Any,
+        corpus_ids: list[int] | None = None,
+        n_results: int = 8,
+    ) -> Any:
+        """Single entry point for hybrid semantic/keyword corpus retrieval."""
+        from divyadrishti.knowledge.hybrid_retrieval import CorpusRetrievalResult
+
+        engine = self.build_retrieval_engine(corpus_ids=corpus_ids)
+        result = engine.retrieve(question, entities, corpus_ids=corpus_ids, n_results=n_results)
+        return result
+
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------

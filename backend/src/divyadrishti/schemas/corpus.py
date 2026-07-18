@@ -5,6 +5,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+from divyadrishti.reasoning.astrological.models import AstrologicalEntity
+
 
 class CorpusCreateRequest(BaseModel):
     slug: str
@@ -131,3 +133,10 @@ class CandidateRuleCompareResponse(BaseModel):
 class GraphTraversalResponse(BaseModel):
     nodes: list[dict[str, Any]] = Field(default_factory=list)
     edges: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class CorpusRetrieveRequest(BaseModel):
+    question: str
+    entities: AstrologicalEntity = Field(default_factory=AstrologicalEntity)
+    corpus_ids: list[int] | None = None
+    n_results: int = 8

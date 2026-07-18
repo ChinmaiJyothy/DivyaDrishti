@@ -34,10 +34,19 @@ WEIGHT_SEMANTIC_SIMILARITY = 0.35
 WEIGHT_RULE_CONFIDENCE = 0.20
 WEIGHT_CLASSICAL_AUTHORITY = 0.15
 WEIGHT_TOPIC_RELEVANCE = 0.10
-WEIGHT_QUESTION_RELEVANCE = 0.10
+WEIGHT_METADATA_RELEVANCE = 0.10
 WEIGHT_RECENCY = 0.10
 
 RECENCY_WINDOW_DAYS = 90
+
+
+def _normalize_rule_id(rule_id: str) -> str:
+    """Return a rule id that satisfies the strict ``^[A-Z][A-Z0-9_]*$`` pattern."""
+    normalized = "".join(c if c.isalnum() else "_" for c in rule_id).upper()
+    # Collapse repeated underscores and strip trailing underscores.
+    while "__" in normalized:
+        normalized = normalized.replace("__", "_")
+    return normalized.rstrip("_")
 
 
 class CorpusReference(BaseModel):
@@ -86,8 +95,11 @@ def candidate_rule_to_domain_rule(candidate: CandidateRule) -> Rule:
     register_book_source(book_id, candidate.source_book_title)
 
     factors = candidate.astrological_factors_json or {}
+    rule_id = _normalize_rule_id(
+        candidate.approved_rule_id or f"CORPUS_{candidate.candidate_rule_id}"
+    )
     return Rule(
-        rule_id=candidate.approved_rule_id or f"CORPUS_{candidate.candidate_rule_id}",
+        rule_id=rule_id,
         source_book=book_id,
         chapter=candidate.chapter,
         verse=candidate.verse,
@@ -214,7 +226,7 @@ class CorpusRetrievalEngine:
             semantic_score = max(0.0, min(1.0, result.score))
             authority = self.corpus_authority.get(candidate.corpus_id, 1.0)
             topic_relevance = self._topic_relevance(entities, candidate)
-            question_relevance = self._question_relevance(question, candidate)
+            metadata_relevance = self._metadata_relevance(question, candidate)
             recency = self._recency_boost(candidate)
 
             composite = (
@@ -222,7 +234,7 @@ class CorpusRetrievalEngine:
                 + WEIGHT_RULE_CONFIDENCE * candidate.confidence
                 + WEIGHT_CLASSICAL_AUTHORITY * min(authority, 1.0)
                 + WEIGHT_TOPIC_RELEVANCE * topic_relevance
-                + WEIGHT_QUESTION_RELEVANCE * question_relevance
+                + WEIGHT_METADATA_RELEVANCE * metadata_relevance
                 + WEIGHT_RECENCY * recency
             )
 
@@ -245,12 +257,33 @@ class CorpusRetrievalEngine:
             return 0.0
         return 1.0 if candidate.topic in entities.topics else 0.0
 
-    def _question_relevance(self, question: str, candidate: CandidateRule) -> float:
+    def _metadata_relevance(self, question: str, candidate: CandidateRule) -> float:
+        """Score how well question terms match candidate metadata."""
         question_words = {w.lower() for w in question.split() if len(w) > 3}
         if not question_words:
             return 0.0
-        text_words = {w.lower() for w in candidate.candidate_interpretation.split() if len(w) > 3}
-        overlap = question_words & text_words
+
+        factors = candidate.astrological_factors_json or {}
+        metadata_texts = [
+            candidate.topic,
+            candidate.subtopic,
+            candidate.source_book_title,
+            candidate.chapter,
+            candidate.verse,
+            " ".join(str(v) for v in factors.get("planets", [])),
+            " ".join(str(v) for v in factors.get("houses", [])),
+            " ".join(str(v) for v in factors.get("signs", [])),
+            " ".join(str(v) for v in factors.get("yogas", [])),
+            " ".join(str(v) for v in factors.get("doshas", [])),
+            " ".join(str(v) for v in factors.get("dashas", [])),
+        ]
+        metadata_words = set()
+        for text in metadata_texts:
+            if text:
+                metadata_words.update(str(text).lower().split())
+        metadata_words = {w for w in metadata_words if len(w) > 3}
+
+        overlap = question_words & metadata_words
         return min(1.0, len(overlap) / max(len(question_words), 1))
 
     def _recency_boost(self, candidate: CandidateRule) -> float:
