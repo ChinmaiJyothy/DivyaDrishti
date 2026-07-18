@@ -130,7 +130,7 @@ Responsibilities:
 - Apply safety guardrails.
 
 Components:
-- `LLMProvider` interface and adapters (`OpenAIProvider`, `AnthropicProvider`, `GeminiProvider`, `OllamaProvider`, `MockProvider`)
+- `LLMProvider` interface and adapters (`GrokProvider`, `OpenAIProvider`, `AnthropicProvider`, `GeminiProvider`, `OllamaProvider`, `MockProvider`)
 - `AIGateway` — provider selection, retry, timeout, fallback, logging
 - `PromptManager` — external Jinja2 templates with versioning and validation
 - `ContextBuilder` — assembles prompt context with truncation

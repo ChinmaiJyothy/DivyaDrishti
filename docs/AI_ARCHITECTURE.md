@@ -24,6 +24,7 @@ class LLMProvider:
     def generate(self, system_prompt, user_prompt, max_tokens, temperature, json_mode) -> str
     def stream(self, system_prompt, user_prompt, max_tokens, temperature) -> Iterator[str]
     def generate_structured(self, system_prompt, user_prompt, schema, max_tokens, temperature) -> dict
+    def generate_response(self, system_prompt, user_prompt, schema, max_tokens, temperature) -> AIResponse
     def supports_streaming(self) -> bool
     def supports_json(self) -> bool
     def supports_function_calling(self) -> bool
@@ -33,11 +34,21 @@ Supported adapters:
 
 - `MockProvider` — deterministic testing provider
 - `OpenAIProvider` — OpenAI GPT models
+- `GrokProvider` — xAI Grok (OpenAI-compatible API)
 - `AnthropicProvider` — Anthropic Claude (httpx)
 - `GeminiProvider` — Google Gemini (httpx)
 - `OllamaProvider` — Local Ollama models
 
-Provider selection is configurable via `LLM_PROVIDER` environment variable. No application code changes when switching providers.
+Provider selection is configurable via the `LLM_PROVIDER` environment variable:
+
+```bash
+LLM_PROVIDER=grok|gemini|openai|ollama|mock
+```
+
+Set the corresponding API key for the chosen provider (e.g. `OPENAI_API_KEY`, `GROK_API_KEY`, `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`).
+No application code changes are required when switching providers.
+
+The `generate_response` method returns a validated `AIResponse` object, so the Conversation Engine is always provider-agnostic.
 
 ## AI Gateway
 

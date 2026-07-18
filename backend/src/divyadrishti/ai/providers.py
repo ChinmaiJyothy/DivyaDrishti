@@ -1,10 +1,13 @@
 """LLM provider adapters for the AI Conversation Engine."""
 
+import json
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from typing import Any
 
 import httpx
+
+from divyadrishti.ai.models import AIResponse
 
 
 class LLMProvider(ABC):
@@ -33,15 +36,60 @@ class LLMProvider(ABC):
     def generate_structured(
         self, system_prompt: str, user_prompt: str, schema: dict[str, Any], max_tokens: int = 1024, temperature: float = 0.7
     ) -> dict[str, Any]:
-        """Generate a structured JSON response."""
-        json_prompt = (
-            f"{user_prompt}\n\nRespond with a single JSON object matching this schema:\n"
-            f"{schema}"
-        )
-        text = self.generate(system_prompt, json_prompt, max_tokens, temperature, json_mode=True)
-        import json
+        """Generate a structured JSON response and return it as a plain dict."""
+        return self.generate_response(system_prompt, user_prompt, schema, max_tokens, temperature).model_dump()
 
-        return json.loads(text)
+    def generate_response(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        schema: dict[str, Any],
+        max_tokens: int = 1024,
+        temperature: float = 0.7,
+    ) -> AIResponse:
+        """Generate a completion and return a validated AIResponse object."""
+        json_prompt = self._build_json_prompt(user_prompt, schema)
+        text = self.generate(system_prompt, json_prompt, max_tokens, temperature, json_mode=True)
+        return self._parse_ai_response(text)
+
+    def _build_json_prompt(self, user_prompt: str, schema: dict[str, Any]) -> str:
+        return (
+            f"{user_prompt}\n\nRespond with a single JSON object matching this schema:\n"
+            f"{json.dumps(schema, ensure_ascii=False)}"
+        )
+
+    def _parse_ai_response(self, text: str) -> AIResponse:
+        """Parse a JSON string into an AIResponse, with robust fallback."""
+        data: Any = None
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError:
+            data = self._extract_json(text)
+        if not isinstance(data, dict):
+            data = self._fallback_response_data(text)
+        return AIResponse.model_validate(data)
+
+    def _extract_json(self, text: str) -> Any:
+        """Attempt to extract a JSON object from a larger text block."""
+        start = text.find("{")
+        end = text.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            try:
+                return json.loads(text[start : end + 1])
+            except json.JSONDecodeError:
+                pass
+        return None
+
+    def _fallback_response_data(self, text: str) -> dict[str, Any]:
+        return {
+            "direct_answer": text[:200],
+            "interpretation": text,
+            "supporting_factors": [],
+            "conflicting_factors": [],
+            "overall_confidence": 0.0,
+            "references": [],
+            "follow_up_questions": [],
+        }
 
     def supports_streaming(self) -> bool:
         return False
@@ -163,6 +211,25 @@ class OpenAIProvider(LLMProvider):
 
     def supports_json(self) -> bool:
         return True
+
+    def supports_function_calling(self) -> bool:
+        return True
+
+
+class GrokProvider(OpenAIProvider):
+    """xAI Grok adapter using the OpenAI-compatible API."""
+
+    def __init__(
+        self,
+        model: str | None = None,
+        api_key: str | None = None,
+        base_url: str = "https://api.x.ai/v1",
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(model=model, api_key=api_key, base_url=base_url, **kwargs)
+
+    def default_model(self) -> str:
+        return "grok-2"
 
     def supports_function_calling(self) -> bool:
         return True

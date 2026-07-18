@@ -9,6 +9,7 @@ from divyadrishti.ai.prompt_manager import PromptManager
 from divyadrishti.ai.providers import (
     AnthropicProvider,
     GeminiProvider,
+    GrokProvider,
     LLMProvider,
     MockProvider,
     OllamaProvider,
@@ -25,6 +26,7 @@ __all__ = [
     "DeepTranslator",
     "GatewayRequest",
     "GeminiProvider",
+    "GrokProvider",
     "LanguageService",
     "LLMProvider",
     "MockProvider",

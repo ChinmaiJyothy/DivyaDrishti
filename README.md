@@ -11,7 +11,7 @@ Key capabilities:
 - **Astrological Reasoning Engine** — a deterministic, explainable engine (question analysis → rule matching → evidence evaluation → conflict resolution → confidence scoring) that never fabricates conclusions.
 - **Knowledge Corpus** — administrators can upload classical texts (PDF/scanned/Markdown/TXT, multi-language with OCR fallback); the system extracts chapter/verse/page-aware semantic chunks, embeds them, and proposes candidate rules for human review before they ever influence reasoning.
 - **Explainability Engine (XAI)** — every response ships with a traceable reasoning graph, supporting/conflicting evidence, confidence breakdown, and classical citations.
-- **Conversational AI Layer** — a pluggable, provider-agnostic LLM gateway (OpenAI, Anthropic, Gemini, Ollama, or a local mock) turns structured reasoning into natural-language, multilingual responses — it only narrates, it never decides.
+- **Conversational AI Layer** — a pluggable, provider-agnostic LLM gateway (Grok, Gemini, OpenAI, Ollama, Anthropic, or a local mock) turns structured reasoning into natural-language, multilingual responses — it only narrates, it never decides.
 - **User & Profile Management** — authentication, multiple birth profiles, conversation history, feedback, and an admin review workflow for knowledge quality.
 
 ## Architecture
@@ -23,7 +23,7 @@ Key capabilities:
 | Database | SQLite (development/MVP), PostgreSQL (production) |
 | Astrology Engine | `pyswisseph` (Swiss Ephemeris) + custom Vedic reasoning logic |
 | Knowledge/Vector Store | ChromaDB, sentence-transformers embeddings |
-| AI | Pluggable LLM provider (OpenAI, Anthropic, Gemini, Ollama, or mock) |
+| AI | Pluggable LLM provider (Grok, Gemini, OpenAI, Ollama, Anthropic, or mock) |
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full system design, and the rest of the [`docs/`](docs) directory for deep dives into each subsystem (reasoning engine, explainability, knowledge base, chat, frontend, etc.).
 
@@ -43,7 +43,7 @@ python -m venv .venv
 # source .venv/bin/activate # Linux/macOS
 
 pip install -e .
-cp .env.example .env        # then set SECRET_KEY (and any LLM provider API keys)
+cp .env.example .env        # then set SECRET_KEY and LLM_PROVIDER/API keys
 
 alembic upgrade head
 uvicorn divyadrishti.main:app --reload --host 0.0.0.0 --port 8000

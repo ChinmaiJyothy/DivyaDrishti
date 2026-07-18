@@ -5,10 +5,11 @@ import os
 from collections.abc import Callable, Iterator
 from typing import Any
 
-from divyadrishti.ai.models import GatewayRequest, TokenUsage
+from divyadrishti.ai.models import AIResponse, GatewayRequest, TokenUsage
 from divyadrishti.ai.providers import (
     AnthropicProvider,
     GeminiProvider,
+    GrokProvider,
     LLMProvider,
     MockProvider,
     OllamaProvider,
@@ -22,6 +23,7 @@ MAX_RETRIES = 3
 PROVIDER_MAP: dict[str, type[LLMProvider]] = {
     "mock": MockProvider,
     "openai": OpenAIProvider,
+    "grok": GrokProvider,
     "anthropic": AnthropicProvider,
     "gemini": GeminiProvider,
     "ollama": OllamaProvider,
@@ -62,6 +64,12 @@ class AIGateway:
         model = os.getenv("LLM_MODEL")
         if name == "openai":
             return {"model": model, "api_key": os.getenv("OPENAI_API_KEY")}
+        if name == "grok":
+            return {
+                "model": model,
+                "api_key": os.getenv("GROK_API_KEY") or os.getenv("XAI_API_KEY"),
+                "base_url": os.getenv("GROK_BASE_URL", "https://api.x.ai/v1"),
+            }
         if name == "anthropic":
             return {"model": model, "api_key": os.getenv("ANTHROPIC_API_KEY")}
         if name == "gemini":
@@ -102,10 +110,14 @@ class AIGateway:
         yield from result
 
     def generate_structured(self, request: GatewayRequest, schema: dict[str, Any]) -> dict[str, Any]:
-        """Generate a structured JSON response."""
+        """Generate a structured JSON response as a plain dict."""
+        return self.generate_response(request, schema).model_dump()
 
-        def call(provider: LLMProvider) -> dict[str, Any]:
-            return provider.generate_structured(
+    def generate_response(self, request: GatewayRequest, schema: dict[str, Any]) -> AIResponse:
+        """Generate a structured response and return a validated AIResponse."""
+
+        def call(provider: LLMProvider) -> AIResponse:
+            return provider.generate_response(
                 request.system_prompt,
                 request.user_prompt,
                 schema,
@@ -134,7 +146,12 @@ class AIGateway:
         raise last_error or RuntimeError("All providers failed.")
 
     def _log_usage(self, provider: LLMProvider, result: Any) -> None:
-        completion = result if isinstance(result, str) else str(result)
+        if isinstance(result, AIResponse):
+            completion = result.direct_answer
+        elif isinstance(result, dict):
+            completion = result.get("direct_answer", "") or str(result)
+        else:
+            completion = result if isinstance(result, str) else str(result)
         usage = TokenUsage(
             provider=provider.__class__.__name__,
             prompt_chars=0,

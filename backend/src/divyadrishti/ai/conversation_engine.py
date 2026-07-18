@@ -1,6 +1,5 @@
 """AI Conversation and Interpretation Engine for DivyaDrishti."""
 
-import json
 import logging
 from pathlib import Path
 from typing import Any
@@ -83,13 +82,7 @@ class AIConversationEngine:
             json_mode=True,
         )
 
-        raw_response = self.gateway.generate(request)
-        try:
-            data = json.loads(raw_response)
-        except json.JSONDecodeError:
-            data = self._fallback_parse(raw_response)
-
-        response = AIResponse.model_validate(data)
+        response = self.gateway.generate_response(request, RESPONSE_SCHEMA)
         response.language = language
         response = self._enrich_response(response, reasoning)
 
@@ -131,26 +124,6 @@ class AIConversationEngine:
             "- Cite classical sources only if they appear in the reasoning."
         )
         return system + safety
-
-    def _fallback_parse(self, text: str) -> dict[str, Any]:
-        """Extract a JSON object from a non-JSON response."""
-        start = text.find("{")
-        end = text.rfind("}")
-        if start != -1 and end != -1 and end > start:
-            try:
-                return json.loads(text[start : end + 1])
-            except json.JSONDecodeError:
-                pass
-
-        return {
-            "direct_answer": text[:200],
-            "interpretation": text,
-            "supporting_factors": [],
-            "conflicting_factors": [],
-            "overall_confidence": 0.0,
-            "references": [],
-            "follow_up_questions": [],
-        }
 
     def _enrich_response(self, response: AIResponse, reasoning: dict[str, Any]) -> AIResponse:
         """Add references and follow-up topics from the reasoning trace."""
