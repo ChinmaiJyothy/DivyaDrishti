@@ -8,6 +8,7 @@ from divyadrishti.knowledge.exceptions import (
     RetrievalError,
     RuleValidationError,
 )
+from divyadrishti.knowledge.book_ingestion import BookIngestionPipeline, BookIngestionReport
 from divyadrishti.knowledge.ingestion import KnowledgeIngestionPipeline
 from divyadrishti.knowledge.models import (
     AstrologicalFactors,
@@ -24,6 +25,8 @@ from divyadrishti.knowledge.validation import RuleValidator
 __all__ = [
     "AstrologicalFactors",
     "Book",
+    "BookIngestionPipeline",
+    "BookIngestionReport",
     "Citation",
     "DuplicateRuleError",
     "IngestionError",

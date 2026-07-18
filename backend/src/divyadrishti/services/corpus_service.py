@@ -11,7 +11,8 @@ from sqlalchemy.orm import Session
 
 from divyadrishti.config import get_settings
 from divyadrishti.documents.store import ChromaVectorStore, VectorStore
-from divyadrishti.knowledge.corpus_pipeline import BookMetadata, CorpusIngestionPipeline, IngestionReport
+from divyadrishti.knowledge.book_ingestion import BookIngestionPipeline, BookIngestionReport
+from divyadrishti.knowledge.corpus_pipeline import BookMetadata
 from divyadrishti.knowledge.graph_builder import KnowledgeGraphBuilder
 from divyadrishti.knowledge.hybrid_retrieval import CorpusRetrievalEngine, candidate_rule_to_domain_rule
 from divyadrishti.knowledge.repository import KnowledgeRepository
@@ -20,6 +21,7 @@ from divyadrishti.models import CandidateRule, CandidateRuleStatus, Corpus, Rule
 from divyadrishti.repositories import (
     CandidateRuleRepository,
     CorpusRepository,
+    ExtractedBookPageRepository,
     KnowledgeGraphRepository,
     RuleReviewAuditRepository,
     UploadedBookRepository,
@@ -43,6 +45,7 @@ class CorpusService:
         self.candidate_repo = CandidateRuleRepository(db)
         self.audit_repo = RuleReviewAuditRepository(db)
         self.graph_repo = KnowledgeGraphRepository(db)
+        self.extracted_page_repo = ExtractedBookPageRepository(db)
         self.graph_builder = KnowledgeGraphBuilder(self.graph_repo)
         # The file-based rule repository backing the Reasoning Engine's
         # keyword fallback. Approving a candidate rule persists it here too,
@@ -97,13 +100,13 @@ class CorpusService:
         )
         return self.book_repo.create(book)
 
-    def ingest_book(self, book_id: int) -> IngestionReport:
-        """Run the full ingestion pipeline for a previously uploaded book.
+    def ingest_book(self, book_id: int) -> BookIngestionReport:
+        """Run the book ingestion pipeline for a previously uploaded book.
 
-        Extraction -> OCR fallback -> language detection -> semantic
-        chunking (chapter/verse/page aware) -> embedding -> vector store
-        -> knowledge graph nodes -> candidate rule extraction. Candidate
-        rules are persisted as PENDING and never activate automatically.
+        Extraction -> OCR fallback (if scanned) -> language detection ->
+        hierarchy extraction (title, author, chapter, section, verse, page)
+        -> database storage. Embeddings and candidate-rule extraction are
+        intentionally left out of this step.
         """
         book = self.book_repo.get_by_id(book_id)
         if not book:
@@ -115,7 +118,7 @@ class CorpusService:
         self.db.commit()
 
         try:
-            pipeline = self._build_pipeline(book.corpus_id)
+            pipeline = BookIngestionPipeline(repository=self.extracted_page_repo)
             metadata = BookMetadata(
                 title=book.title or book.file_name,
                 author=book.author,
@@ -126,57 +129,19 @@ class CorpusService:
                 source=book.source,
                 language_hint=book.language,
             )
-            result = pipeline.ingest(book.file_path, book_id=str(book.id), metadata=metadata)
-
-            candidate_rows = [
-                CandidateRule(
-                    candidate_rule_id=draft.candidate_rule_id,
-                    corpus_id=book.corpus_id,
-                    book_id=book.id,
-                    source_book_title=draft.source_book_title,
-                    language=draft.language,
-                    chapter=draft.chapter,
-                    verse=draft.verse,
-                    page=draft.page,
-                    original_text=draft.original_text,
-                    translated_text=draft.translated_text,
-                    topic=draft.topic,
-                    subtopic=draft.subtopic,
-                    astrological_factors_json=draft.astrological_factors.model_dump(),
-                    candidate_conditions_json=draft.candidate_conditions,
-                    candidate_interpretation=draft.candidate_interpretation,
-                    confidence=draft.confidence,
-                    status=CandidateRuleStatus.PENDING.value,
-                    chunk_id=draft.chunk_id,
-                )
-                for draft in result.candidate_rules
-            ]
-            if candidate_rows:
-                self.candidate_repo.bulk_create(candidate_rows)
-                for candidate in candidate_rows:
-                    self.graph_builder.add_rule(book.corpus_id, book, candidate)
-            else:
-                self.graph_builder.add_book(book.corpus_id, book)
+            report = pipeline.ingest(book.file_path, book_id=book.id, metadata=metadata)
 
             book.status = "completed"
-            book.language = result.report.language_detected
-            book.ingestion_report_json = result.report.model_dump()
+            book.language = report.language_detected
+            book.ingestion_report_json = report.model_dump()
             book.processed_at = datetime.now(timezone.utc)
             self.db.commit()
-            return result.report
+            return report
         except Exception as exc:
             book.status = "failed"
             book.ingestion_report_json = {"error": str(exc)}
             self.db.commit()
             raise CorpusIngestionError(f"Ingestion failed for book {book_id}: {exc}") from exc
-
-    def _build_pipeline(self, corpus_id: int) -> CorpusIngestionPipeline:
-        vector_store = self._vector_store_for_corpus(corpus_id)
-        return CorpusIngestionPipeline.from_settings(
-            vector_store=vector_store,
-            embedding_provider_name=self.settings.embedding_provider,
-            embedding_model=self.settings.embedding_model,
-        )
 
     def _vector_store_for_corpus(self, corpus_id: int) -> VectorStore:
         return ChromaVectorStore(

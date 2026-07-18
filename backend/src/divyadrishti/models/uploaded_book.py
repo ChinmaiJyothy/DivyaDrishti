@@ -39,3 +39,10 @@ class UploadedBook(Base):
     candidate_rules: Mapped[list["CandidateRule"]] = relationship(  # noqa: F821
         "CandidateRule", back_populates="book"
     )
+    extracted_pages: Mapped[list["ExtractedBookPage"]] = relationship(  # noqa: F821
+        "ExtractedBookPage",
+        back_populates="book",
+        order_by="ExtractedBookPage.page_number.asc()",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
