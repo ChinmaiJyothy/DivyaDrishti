@@ -21,4 +21,7 @@ class ReasoningSerializer:
             reasoning_summary=result.reasoning_summary,
             reasoning_steps=[step.model_dump() for step in result.reasoning_steps],
             suggested_follow_up_topics=result.suggested_follow_up_topics,
+            corpus_references=result.corpus_references,
+            corpus_related_chapters=result.corpus_related_chapters,
+            corpus_retrieval_method=result.corpus_retrieval_method,
         )

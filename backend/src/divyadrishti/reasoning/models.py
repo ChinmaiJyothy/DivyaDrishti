@@ -83,3 +83,6 @@ class ReasoningTrace(BaseModel):
     reasoning_summary: str = ""
     reasoning_steps: list[dict] = Field(default_factory=list)
     suggested_follow_up_topics: list[str] = Field(default_factory=list)
+    corpus_references: list[dict] = Field(default_factory=list)
+    corpus_related_chapters: list[str] = Field(default_factory=list)
+    corpus_retrieval_method: str = "disabled"
