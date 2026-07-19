@@ -1,6 +1,6 @@
 """Vimshottari dasha calculation helpers."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 
 from divyadrishti.astrology.constants import DASHA_SEQUENCE, DASHA_TOTAL_YEARS, DASHA_YEARS
@@ -94,7 +94,9 @@ def calculate_current_dasha(
     import swisseph as swe
 
     if reference_date is None:
-        reference_date = datetime.now()
+        reference_date = datetime.now(UTC)
+    if reference_date.tzinfo is not None:
+        reference_date = reference_date.astimezone(UTC)
     reference_jd = swe.julday(
         reference_date.year,
         reference_date.month,

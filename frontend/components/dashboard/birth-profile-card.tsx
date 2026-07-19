@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Plus, Users } from "lucide-react";
+import { Loader2, Plus, Users, AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,13 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/ui/empty-state";
-import { useBirthProfiles, useCreateBirthProfile, useLatestProfileChart } from "@/hooks/use-birth-profiles";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  useBirthProfiles,
+  useCreateBirthProfile,
+  useGenerateChart,
+  useLatestProfileChart,
+} from "@/hooks/use-birth-profiles";
 import { useSettings } from "@/providers/settings-provider";
 import type { BirthProfile } from "@/types";
 
@@ -193,6 +199,7 @@ export function BirthProfileCard() {
   const { settings, setCurrentProfileId } = useSettings();
   const currentId = settings.currentProfileId;
   const { data: chart, isLoading: chartLoading } = useLatestProfileChart(currentId || "");
+  const generate = useGenerateChart(currentId || "");
 
   useEffect(() => {
     if (profiles && profiles.length > 0 && !currentId) {
@@ -201,6 +208,11 @@ export function BirthProfileCard() {
   }, [profiles, currentId, setCurrentProfileId]);
 
   const currentProfile = profiles?.find((p) => String(p.id) === currentId);
+
+  const handleGenerate = () => {
+    generate.reset();
+    generate.mutate("rashi");
+  };
 
   if (isLoading) {
     return (
@@ -233,7 +245,8 @@ export function BirthProfileCard() {
     );
   }
 
-  const chartData = chart?.chart_data ?? currentProfile?.chart_metadata ?? {};
+  const chartData = chart?.chart_data ?? {};
+  const hasChartData = chart?.chart_data && Object.keys(chart.chart_data).length > 0;
 
   return (
     <Card>
@@ -266,7 +279,7 @@ export function BirthProfileCard() {
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-4 w-1/2" />
           </div>
-        ) : (
+        ) : hasChartData ? (
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="rounded-lg bg-muted p-2">
               <span className="block text-xs text-muted-foreground">Lagna</span>
@@ -279,9 +292,25 @@ export function BirthProfileCard() {
             <div className="col-span-2 rounded-lg bg-muted p-2">
               <span className="block text-xs text-muted-foreground">Current Mahadasha</span>
               <span className="font-medium">
-                {(chartData as { current_mahadasha?: string }).current_mahadasha || "—"}
+                {(chartData as { maha_dasha?: string }).maha_dasha || "—"}
               </span>
             </div>
+          </div>
+        ) : (
+          <div className="space-y-3 text-center">
+            <p className="text-sm text-muted-foreground">No birth chart generated yet.</p>
+            <Button size="sm" onClick={handleGenerate} disabled={generate.isPending}>
+              {generate.isPending ? "Generating..." : "Generate Birth Chart"}
+            </Button>
+            {generate.isError && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Chart generation failed</AlertTitle>
+                <AlertDescription>
+                  {generate.error?.message || "An unexpected error occurred."}
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
         )}
       </CardContent>

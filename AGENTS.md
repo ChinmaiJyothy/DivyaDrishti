@@ -4,15 +4,17 @@
 
 ### Backend
 - `cd backend`
-- `python -m venv .venv`
+- **Use Python 3.11 or 3.12** for `pyswisseph` wheel compatibility (Python 3.14 requires source compilation)
+- `python -m venv .venv` (on Windows with multiple versions: `py -3.11 -m venv .venv`)
 - `.venv\Scripts\activate` (Windows) or `source .venv/bin/activate` (Linux/macOS)
 - `pip install -e .`
 - `cp .env.example .env` and set `SECRET_KEY`
-- `uvicorn divyadrishti.main:app --reload --host 0.0.0.0 --port 8000`
 - `alembic upgrade head`
-- `pytest`
-- `ruff check .`
-- `mypy .`
+- `start_backend.ps1` (Windows) or `./start_backend.sh` (Linux/macOS) to enforce Python 3.11/3.12
+- `uvicorn divyadrishti.main:app --reload --host 0.0.0.0 --port 8000`
+- `pytest` (from project root)
+- `ruff check .` (from backend/)
+- `mypy .` (from backend/)
 
 ### Frontend
 - `cd frontend`

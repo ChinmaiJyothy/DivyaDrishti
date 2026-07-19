@@ -57,12 +57,18 @@ class BirthChartService:
         if not profile:
             raise ValueError("Profile not found")
 
+        if profile.latitude is None or profile.longitude is None or not profile.timezone:
+            raise ValueError(
+                "Birth profile is missing latitude, longitude or timezone; "
+                "please update the birth place or coordinates."
+            )
+
         generator = BirthChartGenerator()
         chart_data = generator.generate(
             date_of_birth=profile.date_of_birth,
             time_of_birth=profile.time_of_birth,
-            latitude=profile.latitude or 0.0,
-            longitude=profile.longitude or 0.0,
+            latitude=profile.latitude,
+            longitude=profile.longitude,
             timezone=profile.timezone,
             chart_type=chart_type,
         )
@@ -72,8 +78,8 @@ class BirthChartService:
             varga = generator.generate_varga(
                 date_of_birth=profile.date_of_birth,
                 time_of_birth=profile.time_of_birth,
-                latitude=profile.latitude or 0.0,
-                longitude=profile.longitude or 0.0,
+                latitude=profile.latitude,
+                longitude=profile.longitude,
                 timezone=profile.timezone,
                 chart_type="navamsa",
             )

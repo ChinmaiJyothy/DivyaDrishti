@@ -30,7 +30,7 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full system design, a
 ## Getting Started
 
 ### Prerequisites
-- Python 3.12+
+- Python **3.11 or 3.12** (required for `pyswisseph` prebuilt wheels; Python 3.14 will build from source and requires a full C++ toolchain)
 - Node.js 18+
 - A C/C++ build toolchain if `pyswisseph` needs to compile from source on your platform (prebuilt wheels are available for most common platforms/Python versions).
 
@@ -38,6 +38,9 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full system design, a
 
 ```bash
 cd backend
+
+# IMPORTANT: use Python 3.11 or 3.12. On Windows with multiple installs use e.g.:
+# py -3.11 -m venv .venv
 python -m venv .venv
 .venv\Scripts\activate      # Windows
 # source .venv/bin/activate # Linux/macOS
@@ -46,6 +49,11 @@ pip install -e .
 cp .env.example .env        # then set SECRET_KEY and LLM_PROVIDER/API keys
 
 alembic upgrade head
+
+# Or use the convenience script that enforces Python 3.11/3.12:
+# start_backend.ps1   # Windows
+# ./start_backend.sh  # Linux/macOS
+
 uvicorn divyadrishti.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -53,9 +61,13 @@ The API will be available at `http://localhost:8000` (interactive docs at `/docs
 
 Useful backend commands:
 ```bash
-pytest          # run tests
-ruff check .     # lint
-mypy .           # type-check
+# From the project root:
+backend\.venv\Scripts\python.exe -m pytest  # Windows
+# or, on Linux/macOS:
+# .venv/bin/python -m pytest
+
+ruff check .     # lint (run from backend/)
+mypy .           # type-check (run from backend/)
 ```
 
 ### Frontend

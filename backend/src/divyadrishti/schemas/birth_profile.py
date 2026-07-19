@@ -14,7 +14,7 @@ class BirthProfileCreateRequest(BaseModel):
     birth_place: str | None = None
     latitude: float | None = None
     longitude: float | None = None
-    timezone: str = "UTC"
+    timezone: str | None = None
     accuracy_level: str = "exact"
     notes: str | None = None
     chart_metadata: dict[str, Any] | None = None

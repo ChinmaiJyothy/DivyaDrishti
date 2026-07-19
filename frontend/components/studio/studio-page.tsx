@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-import { Loader2, Search } from "lucide-react";
+import { AlertCircle, Loader2, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   useGenerateChart,
   useLatestProfileChart,
@@ -39,10 +40,16 @@ export function StudioPage() {
   const search = useSearchChart(chartQuery.data?.id ?? "");
 
   useEffect(() => {
-    if (profileId && !chartQuery.data && !chartQuery.isLoading && !generate.isPending) {
+    if (
+      profileId &&
+      !chartQuery.data &&
+      !chartQuery.isLoading &&
+      !generate.isPending &&
+      !generate.isError
+    ) {
       generate.mutate(chartType);
     }
-  }, [profileId, chartQuery.data, chartQuery.isLoading, generate, chartType]);
+  }, [profileId, chartQuery.data, chartQuery.isLoading, generate, generate.isError, chartType]);
 
   useEffect(() => {
     if (chartType && chartQuery.data?.id) {
@@ -89,11 +96,23 @@ export function StudioPage() {
           <p className="text-muted-foreground">No chart data available. Generate a chart to get started.</p>
           <Button
             className="mt-4"
-            onClick={() => generate.mutate(chartType)}
+            onClick={() => {
+              generate.reset();
+              generate.mutate(chartType);
+            }}
             disabled={generate.isPending}
           >
             {generate.isPending ? "Generating..." : "Generate Chart"}
           </Button>
+          {generate.isError && (
+            <Alert variant="destructive" className="mt-4 text-left">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Chart generation failed</AlertTitle>
+              <AlertDescription>
+                {generate.error?.message || "An unexpected error occurred while calculating the chart."}
+              </AlertDescription>
+            </Alert>
+          )}
         </CardContent>
       </Card>
     );

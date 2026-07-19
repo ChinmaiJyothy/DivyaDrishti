@@ -32,7 +32,10 @@ def create_profile(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ) -> BirthProfileResponse:
-    return _service(db).create(current_user.id, body.model_dump())
+    try:
+        return _service(db).create(current_user.id, body.model_dump())
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
 
 @router.get("", response_model=list[BirthProfileResponse])
@@ -66,7 +69,10 @@ def update_profile(
     profile = service.get(profile_id, current_user.id)
     if not profile:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
-    return service.update(profile, body.model_dump(exclude_unset=True))
+    try:
+        return service.update(profile, body.model_dump(exclude_unset=True))
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
 
 @router.delete("/{profile_id}")
@@ -141,4 +147,7 @@ def generate_chart(
     profile = service.get(profile_id, current_user.id)
     if not profile:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
-    return _chart_service(db).generate_chart(profile_id, current_user.id, chart_type)
+    try:
+        return _chart_service(db).generate_chart(profile_id, current_user.id, chart_type)
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
