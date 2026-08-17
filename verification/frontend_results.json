@@ -1,0 +1,400 @@
+{
+  "startedAt": "2026-07-18T16:35:33.313Z",
+  "durationMs": 33032,
+  "results": [
+    {
+      "phase": "login-page",
+      "ok": true,
+      "durationMs": 1430
+    },
+    {
+      "phase": "login-submit",
+      "ok": true,
+      "durationMs": 131
+    },
+    {
+      "phase": "responsive-mobile",
+      "ok": true,
+      "durationMs": 1881
+    },
+    {
+      "phase": "chat-workspace",
+      "ok": true,
+      "durationMs": 4323
+    },
+    {
+      "phase": "chat-streaming",
+      "ok": true,
+      "durationMs": 6363
+    },
+    {
+      "phase": "birth-profiles",
+      "ok": true,
+      "durationMs": 2503
+    },
+    {
+      "phase": "knowledge-library",
+      "ok": true,
+      "durationMs": 2519
+    },
+    {
+      "phase": "settings",
+      "ok": true,
+      "durationMs": 3517
+    },
+    {
+      "phase": "feedback",
+      "ok": true,
+      "durationMs": 3806
+    },
+    {
+      "phase": "admin",
+      "ok": true,
+      "durationMs": 2027
+    },
+    {
+      "phase": "conversations",
+      "ok": true,
+      "durationMs": 2974
+    },
+    {
+      "phase": "error-404",
+      "ok": true,
+      "durationMs": 1552
+    }
+  ],
+  "console": [
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] done in 2211ms",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js\",\"line\":13,\"column\":12,\"lineNumber\":13,\"columnNumber\":12}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] done in 1493ms",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js\",\"line\":13,\"column\":12,\"lineNumber\":13,\"columnNumber\":12}"
+    },
+    {
+      "type": "warning",
+      "text": "Detected `scroll-behavior: smooth` on the `<html>` element. In a future version, Next.js will no longer automatically disable smooth scrolling during route transitions. To prepare for this change, add `data-scroll-behavior=\"smooth\"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/shared/lib/utils/warn-once.js\",\"line\":15,\"column\":20,\"lineNumber\":15,\"columnNumber\":20}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] done in 892ms",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js\",\"line\":13,\"column\":12,\"lineNumber\":13,\"columnNumber\":12}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] done in 1935ms",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js\",\"line\":13,\"column\":12,\"lineNumber\":13,\"columnNumber\":12}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/feedback\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] done in 1156ms",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/report-hmr-latency.js\",\"line\":13,\"column\":12,\"lineNumber\":13,\"columnNumber\":12}"
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js\",\"line\":25630,\"column\":16,\"lineNumber\":25630,\"columnNumber\":16}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "log",
+      "text": "[Fast Refresh] rebuilding",
+      "location": "{\"url\":\"webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js\",\"line\":196,\"column\":28,\"lineNumber\":196,\"columnNumber\":28}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "{\"url\":\"http://localhost:3000/this-page-does-not-exist\",\"line\":0,\"column\":0,\"lineNumber\":0,\"columnNumber\":0}"
+    }
+  ],
+  "errors": [
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/ask\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/ask\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/ask\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/profiles\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/profiles\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/profiles\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/knowledge\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/knowledge\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/knowledge\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/settings\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/settings\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/settings\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/feedback\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/feedback\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/feedback\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)",
+    "pageerror: [object Object]",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/admin\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/admin\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/admin\" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "pageerror: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundaryHandler pathname=\"/conversat...\" errorComponent={function ErrorPage} errorStyles={<SegmentViewNode>} ...>\n      <LoadingBoundary loading={[...]}>\n        <Suspense fallback={<Fragment>}>\n          <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>\n            <HTTPAccessFallbackErrorBoundary pathname=\"/conversat...\" notFound={<SegmentViewNode>} forbidden={undefined} ...>\n              <RedirectBoundary>\n                <RedirectErrorBoundary router={{...}}>\n                  <InnerLayoutRouter url=\"/conversat...\" tree={[...]} cacheNode={{lazyData:null, ...}} ...>\n                    <SegmentViewNode type=\"layout\" pagePath=\"(dashboard...\">\n                      <SegmentTrieNode>\n                      <ClientSegmentRoot Component={function DashboardGroupLayout} slots={{...}} params={{}}>\n                        <DashboardGroupLayout params={Promise}>\n                          <ProtectedRoute>\n+                           <div className=\"flex min-h-screen items-center justify-center\">\n                  ...\n",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "console: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "network": [
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/feedback",
+      "status": 422
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:8000/api/v1/profiles/3/charts/latest?chart_type=rashi",
+      "status": 404
+    },
+    {
+      "url": "http://localhost:3000/this-page-does-not-exist",
+      "status": 404
+    }
+  ]
+}

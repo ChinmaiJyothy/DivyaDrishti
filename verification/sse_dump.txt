@@ -1,0 +1,76 @@
+data: {"event": "user", "message_id": 11, "role": "user", "content": "What are my career prospects?"}
+
+data: {"event": "delta", "content": "The "}
+
+data: {"event": "delta", "content": "chart "}
+
+data: {"event": "delta", "content": "shows "}
+
+data: {"event": "delta", "content": "a "}
+
+data: {"event": "delta", "content": "supportive "}
+
+data: {"event": "delta", "content": "Jupiter "}
+
+data: {"event": "delta", "content": "influence "}
+
+data: {"event": "delta", "content": "on "}
+
+data: {"event": "delta", "content": "the "}
+
+data: {"event": "delta", "content": "7th "}
+
+data: {"event": "delta", "content": "house, "}
+
+data: {"event": "delta", "content": "which "}
+
+data: {"event": "delta", "content": "indicates "}
+
+data: {"event": "delta", "content": "a "}
+
+data: {"event": "delta", "content": "generally "}
+
+data: {"event": "delta", "content": "favorable "}
+
+data: {"event": "delta", "content": "foundation "}
+
+data: {"event": "delta", "content": "for "}
+
+data: {"event": "delta", "content": "marriage. "}
+
+data: {"event": "delta", "content": "However, "}
+
+data: {"event": "delta", "content": "Saturn's "}
+
+data: {"event": "delta", "content": "presence "}
+
+data: {"event": "delta", "content": "also "}
+
+data: {"event": "delta", "content": "suggests "}
+
+data: {"event": "delta", "content": "potential "}
+
+data: {"event": "delta", "content": "delays. "}
+
+data: {"event": "delta", "content": "Overall, "}
+
+data: {"event": "delta", "content": "the "}
+
+data: {"event": "delta", "content": "outlook "}
+
+data: {"event": "delta", "content": "is "}
+
+data: {"event": "delta", "content": "positive "}
+
+data: {"event": "delta", "content": "but "}
+
+data: {"event": "delta", "content": "patience "}
+
+data: {"event": "delta", "content": "is "}
+
+data: {"event": "delta", "content": "advised. "}
+
+data: {"event": "metadata", "message_id": 12, "ai_response": {"direct_answer": "The chart shows a supportive Jupiter influence on the 7th house, which indicates a generally favorable foundation for marriage. However, Saturn's presence also suggests potential delays. Overall, the outlook is positive but patience is advised. ", "interpretation": "The chart shows a supportive Jupiter influence on the 7th house, which indicates a generally favorable foundation for marriage. However, Saturn's presence also suggests potential delays. Overall, the outlook is positive but patience is advised. ", "supporting_factors": ["A strong 10th lord in the 10th house indicates career stability, recognition, and authority."], "conflicting_factors": [], "overall_confidence": 0.0, "references": ["BPHS 7 12"], "follow_up_questions": [" Timing of promotion", "Business vs job", "Foreign career"], "language": "en"}, "reasoning_result": {"question": "What are my career prospects?", "domain": "career", "relevant_factors": {"houses": [10], "planets": ["Saturn", "Sun", "Mercury"], "signs": [], "nakshatras": [], "yogas": [], "doshas": [], "dashas": [], "topics": ["career"]}, "matched_rules": [], "partially_matched_rules": [], "unmatched_rules": [{"rule_id": "BPHS_10TH_001", "source": "BPHS", "conditions": ["The 10th lord is strong and well placed in the 10th house"], "matched_conditions": [], "confidence": 0.0, "weight": 0.0, "match_status": "not_matched", "supporting": [], "conflicting": [], "explanation": "A strong 10th lord in the 10th house indicates career stability, recognition, and authority.", "notes": "No matching astrological factors in the chart."}], "supporting_evidence": [{"rule_id": "BPHS_10TH_001", "source": "BPHS", "conditions": ["The 10th lord is strong and well placed in the 10th house"], "matched_conditions": [], "confidence": 0.0, "weight": 0.0, "match_status": "not_matched", "supporting": [], "conflicting": [], "explanation": "A strong 10th lord in the 10th house indicates career stability, recognition, and authority.", "notes": "No matching astrological factors in the chart."}], "conflicting_evidence": [], "overall_confidence": 0.0, "reasoning_summary": "Domain=career. Matched=0. Conflicting=0.", "reasoning_steps": [{"step": "Question Analysis", "details": "Domain: career. Relevant factors: {'houses': [10], 'planets': ['Saturn', 'Sun', 'Mercury'], 'signs': [], 'nakshatras': [], 'yogas': [], 'doshas': [], 'dashas': [], 'topics': ['career']}", "evidence": []}, {"step": "Rule Retrieval", "details": "Retrieved 1 rules for evaluation.", "evidence": []}, {"step": "Evidence Evaluation", "details": "Matched 0 rules fully.", "evidence": []}, {"step": "Conflict Resolution", "details": "Conflicting evidence: 0.", "evidence": []}], "suggested_follow_up_topics": [" Timing of promotion", "Business vs job", "Foreign career"], "corpus_references": [], "corpus_related_chapters": [], "corpus_retrieval_method": "disabled"}, "explainability_report": {"question": "What are my career prospects?", "detected_domain": "career", "chart_factors_used": {"lagna": "", "moon_sign": "", "sun_sign": "", "maha_dasha": "", "antar_dasha": "", "planets": {}, "navamsa": {}, "yogas": [], "doshas": []}, "rules_considered": ["BPHS_10TH_001"], "matched_rules": [], "ignored_rules": [{"rule_id": "BPHS_10TH_001", "source_book": "BPHS", "chapter": "7", "verse": "12", "page": null, "conditions": ["The 10th lord is strong and well placed in the 10th house"], "matched_conditions": [], "weight": 0.0, "confidence": 0.0, "match_status": "not_matched", "reason_included": "", "reason_excluded": "Did not match conditions: ['The 10th lord is strong and well placed in the 10th house']"}], "supporting_evidence": [{"factor": "BPHS_10TH_001", "why_it_matters": "A strong 10th lord in the 10th house indicates career stability, recognition, and authority.", "rule_id": "BPHS_10TH_001", "source": "BPHS", "confidence_impact": 0.0}], "conflicting_evidence": [], "reasoning_path": {"root": {"id": "question", "label": "Question: What are my career prospects?", "type": "question", "children": [{"id": "domain", "label": "Detect Domain: career", "type": "domain", "children": [{"id": "retrieve_rules", "label": "Retrieve Relevant Rules", "type": "retrieve", "children": [{"id": "evaluate_factors", "label": "Evaluate Chart Factors", "type": "evaluation", "children": [{"id": "factor_houses", "label": "Evaluate Houses: 10", "type": "factor", "children": [], "metadata": {"houses": [10]}}, {"id": "factor_planets", "label": "Evaluate Planets: Saturn, Sun, Mercury", "type": "factor", "children": [], "metadata": {"planets": ["Saturn", "Sun", "Mercury"]}}, {"id": "factor_topics", "label": "Evaluate Topics: career", "type": "factor", "children": [], "metadata": {"topics": ["career"]}}, {"id": "reasoning_steps", "label": "Reasoning Steps", "type": "steps", "children": [{"id": "step_1", "label": "Question Analysis", "type": "step", "children": [], "metadata": {"details": "Domain: career. Relevant factors: {'houses': [10], 'planets': ['Saturn', 'Sun', 'Mercury'], 'signs': [], 'nakshatras': [], 'yogas': [], 'doshas': [], 'dashas': [], 'topics': ['career']}"}}, {"id": "step_2", "label": "Rule Retrieval", "type": "step", "children": [], "metadata": {"details": "Retrieved 1 rules for evaluation."}}, {"id": "step_3", "label": "Evidence Evaluation", "type": "step", "children": [], "metadata": {"details": "Matched 0 rules fully."}}, {"id": "step_4", "label": "Conflict Resolution", "type": "step", "children": [], "metadata": {"details": "Conflicting evidence: 0."}}], "metadata": {}}, {"id": "combine_evidence", "label": "Combine Evidence", "type": "combine", "children": [{"id": "conclusion", "label": "Conclusion (Confidence: 0.0%)", "type": "conclusion", "children": [], "metadata": {"summary": "Domain=career. Matched=0. Conflicting=0."}}], "metadata": {}}], "metadata": {}}], "metadata": {}}], "metadata": {}}], "metadata": {}}}, "confidence_score": {"overall_confidence": 0.0, "contributors": [{"name": "BPHS_10TH_001", "contribution": 0.0, "type": "support"}]}, "limitations": [{"type": "low_confidence", "description": "Overall confidence is below 50%."}, {"type": "insufficient_evidence", "description": "No rules fully matched the chart."}, {"type": "missing_dasha", "description": "Dasha timing information not available."}], "classical_references": [{"book": "BPHS", "chapter": "7", "verse": "12", "page": null, "original_language": null, "translated_text": "A strong 10th lord in the 10th house indicates career stability, recognition, and authority.", "corpus": null, "original_text": null, "retrieval_score": null}], "suggested_reading": [], "important_notes": ["This explanation is generated from the structured reasoning engine.", "Classical references are derived from the knowledge base and not fabricated.", "Confidence reflects rule quality and evidence agreement, not certainty."], "visualizations": {"decision_tree": {"root": {"id": "question", "label": "Question: What are my career prospects?", "type": "question", "children": [{"id": "domain", "label": "Detect Domain: career", "type": "domain", "children": [{"id": "retrieve_rules", "label": "Retrieve Relevant Rules", "type": "retrieve", "children": [{"id": "evaluate_factors", "label": "Evaluate Chart Factors", "type": "evaluation", "children": [{"id": "factor_houses", "label": "Evaluate Houses: 10", "type": "factor", "children": [], "metadata": {"houses": [10]}}, {"id": "factor_planets", "label": "Evaluate Planets: Saturn, Sun, Mercury", "type": "factor", "children": [], "metadata": {"planets": ["Saturn", "Sun", "Mercury"]}}, {"id": "factor_topics", "label": "Evaluate Topics: career", "type": "factor", "children": [], "metadata": {"topics": ["career"]}}, {"id": "reasoning_steps", "label": "Reasoning Steps", "type": "steps", "children": [{"id": "step_1", "label": "Question Analysis", "type": "step", "children": [], "metadata": {"details": "Domain: career. Relevant factors: {'houses': [10], 'planets': ['Saturn', 'Sun', 'Mercury'], 'signs': [], 'nakshatras': [], 'yogas': [], 'doshas': [], 'dashas': [], 'topics': ['career']}"}}, {"id": "step_2", "label": "Rule Retrieval", "type": "step", "children": [], "metadata": {"details": "Retrieved 1 rules for evaluation."}}, {"id": "step_3", "label": "Evidence Evaluation", "type": "step", "children": [], "metadata": {"details": "Matched 0 rules fully."}}, {"id": "step_4", "label": "Conflict Resolution", "type": "step", "children": [], "metadata": {"details": "Conflicting evidence: 0."}}], "metadata": {}}, {"id": "combine_evidence", "label": "Combine Evidence", "type": "combine", "children": [{"id": "conclusion", "label": "Conclusion (Confidence: 0.0%)", "type": "conclusion", "children": [], "metadata": {"summary": "Domain=career. Matched=0. Conflicting=0."}}], "metadata": {}}], "metadata": {}}], "metadata": {}}], "metadata": {}}], "metadata": {}}}, "reasoning_timeline": [{"id": "question", "label": "Question: What are my career prospects?", "type": "question", "depth": 0}, {"id": "domain", "label": "Detect Domain: career", "type": "domain", "depth": 1}, {"id": "retrieve_rules", "label": "Retrieve Relevant Rules", "type": "retrieve", "depth": 2}, {"id": "evaluate_factors", "label": "Evaluate Chart Factors", "type": "evaluation", "depth": 3}, {"id": "factor_houses", "label": "Evaluate Houses: 10", "type": "factor", "depth": 4}, {"id": "factor_planets", "label": "Evaluate Planets: Saturn, Sun, Mercury", "type": "factor", "depth": 4}, {"id": "factor_topics", "label": "Evaluate Topics: career", "type": "factor", "depth": 4}, {"id": "reasoning_steps", "label": "Reasoning Steps", "type": "steps", "depth": 4}, {"id": "step_1", "label": "Question Analysis", "type": "step", "depth": 5}, {"id": "step_2", "label": "Rule Retrieval", "type": "step", "depth": 5}, {"id": "step_3", "label": "Evidence Evaluation", "type": "step", "depth": 5}, {"id": "step_4", "label": "Conflict Resolution", "type": "step", "depth": 5}, {"id": "combine_evidence", "label": "Combine Evidence", "type": "combine", "depth": 4}, {"id": "conclusion", "label": "Conclusion (Confidence: 0.0%)", "type": "conclusion", "depth": 5}], "evidence_tree": {"root": "Evidence", "supporting": [{"rule_id": "BPHS_10TH_001", "confidence": 0.0, "weight": 0.0}], "conflicting": []}, "planet_influence_graph": {"nodes": [], "edges": []}, "house_influence_graph": {"nodes": [{"id": "house_1", "type": "house", "label": "House 1"}, {"id": "house_2", "type": "house", "label": "House 2"}, {"id": "house_3", "type": "house", "label": "House 3"}, {"id": "house_4", "type": "house", "label": "House 4"}, {"id": "house_5", "type": "house", "label": "House 5"}, {"id": "house_6", "type": "house", "label": "House 6"}, {"id": "house_7", "type": "house", "label": "House 7"}, {"id": "house_8", "type": "house", "label": "House 8"}, {"id": "house_9", "type": "house", "label": "House 9"}, {"id": "house_10", "type": "house", "label": "House 10"}, {"id": "house_11", "type": "house", "label": "House 11"}, {"id": "house_12", "type": "house", "label": "House 12"}], "edges": []}, "knowledge_source_graph": {"nodes": [{"id": "BPHS", "type": "book"}, {"id": "BPHS_10TH_001", "type": "rule"}], "edges": [{"source": "BPHS", "target": "BPHS_10TH_001"}]}}}, "follow_up_questions": [" Timing of promotion", "Business vs job", "Foreign career"], "confidence": 0.0}
+
+data: {"event": "done"}
+
